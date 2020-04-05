@@ -1,4 +1,4 @@
-<p align="center" >
+<p align="center"">
     <img src="https://assets.gitlab-static.net/uploads/-/system/project/avatar/17941820/logo_widgets.png" width="100" />
 </p >
  
@@ -19,6 +19,7 @@ WDD aims to increase productivity in the agile development of web-applications f
 
 - [Context and motivation](#context-and-motivation)
 - [Project's scope](#projects-scope)
+- [Concept of WDD](#concept-of-wdd)
 
 <!-- /MarkdownTOC -->
 
@@ -39,7 +40,20 @@ Tools such as Grafana are very user-friendly and useful for fast prototyping, bu
 
 The upcoming series of tutorials addresses experienced front-end developers, software architecture engineers, and all of those who are interested in embracing new design practices for agile software development.
 
-The material covered in the tutorials will be made available under energenious' [open-source archive](https://gitlab.com/energenious/widgets) and free for usage and contribution.
+The material covered in the tutorials will be made available under energenious' [open-source archive](https://gitlab.com/energenious/widgets) and free for usage and contribution. The tutorials are complemented by JavaScript code examples, also available in the repository.
+
+To validate feasibility and added value of WDD, energenious has partnered up with [Tecnojest srl]() an italian innovative IoT company, hosting its own BigData platform, called Office over IP (O2IP). The theoretical material from the tutorial has been further developed into proprietary SDKs, which are now used in production by Tecnojest. All along the tutorials we will offer you practical examples and discuss potential integration problems using the O2IP platform as real use case. The picture below offers a preview of how widgets, written using different libraries, can be prototyped and operated within the same platform:
+
+<p align="center" >
+    <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/O2IP_dashboard.JPG" width="80%" />
+</p >
 
 Please contact [opensource@energenious.eu](mailto:opensource@energenious.eu) for more specific questions, or support for integration, training, etc.
+
+<a id="concept-of-wdd"></a>
+## Concept of WDD ##
+
+<p align="center" >
+    <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/widgets_ecosystem.JPG" width="70%" />
+</p >
 
