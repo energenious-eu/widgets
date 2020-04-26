@@ -27,8 +27,8 @@ This series of articles will illustrate the design practice adopted - and [freel
 <!-- MarkdownTOC autolink="true" autoanchor="true" -->
 
 - [Context and motivation](#context-and-motivation)
-- [Project's scope](#TODO)
-- [Concept of WDD](#TODO)
+- [Executive summary and Use Case](#executive-summary-and-use-case)
+- [Concept of WDD](#CAN BE MOVED TO NEXT ARTICLE)
 
 <!-- /MarkdownTOC -->
 
@@ -56,25 +56,33 @@ This is the problem the WDD is trying to address:
 
 > The objective of WDD is to establish a development and distribution standard for creation of re-usable, framework-agnostic, software modules and their integration in UIs for data analytics
 
-To show the viability and the importance of such a system we want to report the Basic Widget API from the Thingsboard documentation itself available [here](https://thingsboard.io/docs/user-guide/contribution/widgets-development/#basic-widget-api). Thingsboard's team put together a valuable API for allowing developers to contribute to their open-source project. What energenious aims to through WDD is to go beyond providing a scheme to contribute to a pre-existing framework, but rather creating tools and promoting a series of common practices for UI designers and data analysts to package and distribute their artifacts in a way that can be easily integrated in third-party software.
+To show the viability and the importance of such a system we want to report the Basic Widget API from the Thingsboard documentation itself available [here](https://thingsboard.io/docs/user-guide/contribution/widgets-development/#basic-widget-api). Thingsboard's team put together a valuable API for allowing developers to contribute to their open-source project. What energenious aims to achieve through WDD is to go beyond providing a scheme to contribute to a pre-existing framework (as ThingsBoard did), but rather creating tools and promoting a series of common practices for UI designers and data analysts to package and distribute their artifacts in a way that can be easily integrated in third-party software.
 
-<a id="TODO"></a>
-## Project's scope [TODO] ##
+<a id="executive-summary-and-use-case"></a>
+## Executive summary and Use Case ##
 
-The upcoming series of tutorials addresses experienced front-end developers, software architecture engineers, and all of those who are interested in embracing new design practices for agile software development.
+This post is the first of a series of articles and tutorials that the energenious team will be publishing in the incoming weeks, offering an introduction to core concepts behind WDD. The publications will cover different technical aspects behind WDD, ranging from design and implementation, all the way to testing and deployment.
 
-The material covered in the tutorials will be made available under energenious' [open-source archive](https://gitlab.com/energenious/widgets) and free for usage and contribution. The tutorials are complemented by JavaScript code examples, also available in the repository.
+The tutorials in the series will address experienced front-end developers, software architecture engineers, and all of those who are interested in embracing new design practices for agile software development.
 
-To validate feasibility and added value of WDD, energenious has partnered up with [Tecnojest srl](https://www.invidea.it/) an italian innovative IoT company, hosting its own BigData platform, called Office over IP (O2IP). The theoretical material from the tutorial has been further developed into proprietary SDKs, which are now used in production by Tecnojest. All along the tutorials we will offer you practical examples and discuss potential integration problems using the O2IP platform as real use case. The picture below offers a preview of how widgets, written using different libraries, can be prototyped and operated within the same platform:
+> The material covered in the tutorials will be made available under energenious' [open-source archive](https://gitlab.com/energenious/widgets) and free for usage and contribution. The tutorials are complemented by JavaScript code examples, also available in the repository.
+
+All through the series we will be demonstrating the practical implementation of new concepts of WDD in a real production context. **energenious has in fact partnered up with [Tecnojest srl](https://www.invidea.it/)** an innovative player in the Italian IoT market. Tecnojest is hosting its own BigData platform, called Office-over-IP (O2IP). As part of this cooperation, a proprietary SDK has been released, which is now used in production by Tecnojest under O2IP. Within the series we will be sharing insights on lesson-learned during the real-life implementation of WDD, including validated benefits of adopting this new paradigm, but also critically analyzing potential challenges and open questions behind WDD. 
+
+In the picture below we want to give you preview of how different micro-applications, written by two distinct developer teams,, using different libraries (here native JQuery and ReactJS), can co-exist and interact in the same environment, to offer a wide range of services to the end-user:
 
 <p align="center" >
-    <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/O2IP_dashboard.JPG" width="80%" />
+    <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/O2IP_dashboard.png" width="80%" />
 </p >
 
-Please contact [opensource@energenious.eu](mailto:opensource@energenious.eu) for more specific questions, or support for integration, training, etc.
+The objective of this series is ultimately to make the increase awareness on  WDD, promote participation and discussion of the open-source community, support our existing integration partners and attract new ones.
 
-<a id="TODO"></a>
-## Concept of WDD [TODO] ##
+If you are interested in learning more about WDD contact us through the contact form, or simply subscribe to this post for further updates.
+
+Send us an email [opensource@energenious.eu](mailto:opensource@energenious.eu) for technical questions, further integration support, training, etc.
+
+<a id="CAN BE MOVED TO NEXT ARTICLE"></a>
+## Concept of WDD [CAN BE MOVED TO NEXT ARTICLE] ##
 
 ingredients:
 
