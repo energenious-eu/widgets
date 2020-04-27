@@ -12,7 +12,7 @@
 </style>
  
 Software engineering is one of the most dynamic fields of techniques, constantly undergoing changes. 
-One of the driver of such a mutable ecosystem, is the wide adoption of open-source software artifacts as fundament of most of software projects out there. This is even more so in the branch of web software engineering, where the pace at which innovations happens is astonishing high.
+One of the driver of such a mutable ecosystem, is the wide adoption of open-source software artifacts as foundation of most of software projects out there. This is even more so in the branch of web software engineering, where the pace at which innovations happens is astonishing high.
 
 For the past decades, the web is undergoing transitions under so many aspect, but a clear pattern can be seen here too: the trend towards distributed systems and open architectures.
 
@@ -28,6 +28,7 @@ This series of articles will illustrate the design practice adopted - and [freel
 
 - [Context and motivation](#context-and-motivation)
 - [Executive summary and Use Case](#executive-summary-and-use-case)
+- [Conclusion](#conclusion)
 - [Concept of WDD](#CAN BE MOVED TO NEXT ARTICLE)
 
 <!-- /MarkdownTOC -->
@@ -69,15 +70,19 @@ The tutorials in the series will address experienced front-end developers, softw
 
 All through the series we will be demonstrating the practical implementation of new concepts of WDD in a real production context. **energenious has in fact partnered up with [Tecnojest srl](https://www.invidea.it/)** an innovative player in the Italian IoT market. Tecnojest is hosting its own BigData platform, called Office-over-IP (O2IP). As part of this cooperation, a proprietary SDK has been released, which is now used in production by Tecnojest under O2IP. Within the series we will be sharing insights on lesson-learned during the real-life implementation of WDD, including validated benefits of adopting this new paradigm, but also critically analyzing potential challenges and open questions behind WDD. 
 
-In the picture below we want to give you preview of how different micro-applications, written by two distinct developer teams,, using different libraries (here native JQuery and ReactJS), can co-exist and interact in the same environment, to offer a wide range of services to the end-user:
+In the picture below we want to give you preview of how different micro-applications, written by two distinct developer teams,, using different libraries (here native JQuery, ReactJS, and Angular), can co-exist and interact in the same environment, to offer a wide range of services to the end-user:
 
 <p align="center" >
     <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/O2IP_dashboard.png" width="80%" />
 </p >
 
+
+<a id="conclusion"></a>
+## Conclusion ##
+
 The objective of this series is ultimately to make the increase awareness on  WDD, promote participation and discussion of the open-source community, support our existing integration partners and attract new ones.
 
-If you are interested in learning more about WDD contact us through the contact form, or simply subscribe to this post for further updates.
+In the next post we will dive deeper in the nature of WDD, explaining what widgets are, what is their life cycle, and the ecosystem that they build. If you are interested in learning more about WDD contact us through the contact form, or simply subscribe to this post for further updates.
 
 Send us an email [opensource@energenious.eu](mailto:opensource@energenious.eu) for technical questions, further integration support, training, etc.
 
