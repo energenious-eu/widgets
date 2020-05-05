@@ -2,15 +2,6 @@
     <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/modular.jpg" width="400" />
 </p >
 
-<style>
-  blockquote {
-    font-weight: 600
-  }
-  blockquote:hover {
-    color:inherit;
-  }
-</style>
- 
 Software engineering is one of the most dynamic fields of technique, constantly undergoing changes. 
 One of the drivers of such a mutable ecosystem, is the wide adoption of open-source software artifacts as foundation of a large range of software projects. This is even more so in the branch of web software engineering, where the pace at which innovation happens is astonishingly high.
 
