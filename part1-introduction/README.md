@@ -2,15 +2,7 @@
     <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/modular.jpg" width="400" />
 </p >
 
-<style>
-  blockquote {
-    font-weight: 600
-  }
-  blockquote:hover {
-    color:inherit;
-  }
-</style>
- 
+
 Software engineering is one of the most dynamic fields of technology, constantly undergoing rapid changes. One of the drivers of such a mutable ecosystem, is the wide adoption of open-source software as foundation of a large range of software projects. Even more so in web software engineering, where the pace of innovation is astonishingly high.
 
 For the past decades, the web has undergone transitions under many aspects, with a clear trend towards distributed systems and open architectures.
