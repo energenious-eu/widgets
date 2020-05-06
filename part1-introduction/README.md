@@ -28,7 +28,6 @@ This series of articles will give you an insight in the design practices adopted
 - [Context and motivation](#context-and-motivation)
 - [Executive summary and Use Case](#executive-summary-and-use-case)
 - [Conclusion](#conclusion)
-- [Concept of WDD](#CAN BE MOVED TO NEXT ARTICLE)
 
 <!-- /MarkdownTOC -->
 
@@ -86,19 +85,4 @@ With this series, we want to increase awareness on WDD, promote participation an
 In the next post we will dive deeper in the nature of WDD, explaining what widgets are, what is their life cycle, and the ecosystem that they build. If you are interested in learning more about WDD, or how it can be implemented in your workflow, contact us through the [contact form](https://blog.energenious.eu/?page_id=151), or simply subscribe to this post for further updates.
 
 Send us an email at [opensource@energenious.eu](mailto:opensource@energenious.eu) for technical questions, further integration support, training, etc.
-
-<!-- <a id="CAN BE MOVED TO NEXT ARTICLE"></a>
-<a id="CAN BE MOVED TO NEXT ARTICLE"></a>
-## Concept of WDD [CAN BE MOVED TO NEXT ARTICLE] ##
-
-ingredients:
-
-1. SDK
-2. API
-3. Test suite
-4. Distribution server
-
-<p align="center" >
-    <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/widgets_ecosystem.JPG" width="70%" />
-</p > -->
 
