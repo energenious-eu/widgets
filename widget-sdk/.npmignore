@@ -1,0 +1,8 @@
+src/**
+storybook-static/
+build-storybook/
+node_modules/
+.gitignore
+webpack.config.build.js
+dist/**
+doc/**

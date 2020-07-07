@@ -1,0 +1,7 @@
+.cleanslate {
+    border: 0 !important;
+}
+
+.cleanslate * {
+    box-sizing: border-box;
+}

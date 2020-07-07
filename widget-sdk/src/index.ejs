@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <div id="explanation" style="display: <%= htmlWebpackPlugin.options.display %>; margin-bottom: 10px; border-bottom: 2px solid; padding-bottom: 10px;">
+      <p>Widget title: <%= htmlWebpackPlugin.options.title %></p>
+      <a href="./<%= htmlWebpackPlugin.options.script_name %>.js">Latest version of the widget</a>
+    </div>
+
+    <div id="body-div"></div>
+    <!-- <div id="test-div2"></div> -->
+
+    <script src="./<%= htmlWebpackPlugin.options.script_name %>.js"></script>
+
+    <script>
+      window["<%= htmlWebpackPlugin.options.title %>_Widget"].mount({
+        parentElement: "#body-div",
+        uid: 123
+      });
+    </script>
+  </body>
+</html>
+
