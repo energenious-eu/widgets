@@ -133,8 +133,8 @@ Simply follow the instructions above to login and change configurations, then ru
     ```json
     "scripts": {
         ...
-        "build": "webpack-cli  --config ./node_modules/@tecnojest/widget-base/webpack.config.ts --mode production",
-        "start": "webpack-dev-server --config ./node_modules/@tecnojest/widget-base/webpack.config.ts --host 0.0.0.0"
+        "build": "webpack-cli  --config ./node_modules/@tecnojest/widget-base/webpack.config.js --mode production",
+        "start": "webpack-dev-server --config ./node_modules/@tecnojest/widget-base/webpack.config.js --host 0.0.0.0"
     }
     ```
 
