@@ -1,6 +1,5 @@
 import './styles/cleanslate.css';
 import './styles/tooltip.css';
-
 import { loadStyles } from './util/loaders';
 import { parseClassName } from './util/parsers';
 import {
@@ -20,7 +19,7 @@ import { createFooter } from './util/create-footer';
 import { createTooltip } from './util/create-tooltip';
 import { prepareScripts } from './util/prepare-scripts';
 
-const DEFAULT_UID: UID = -1;
+const DEFAULT_UID: UID = '-1';
 
 const INITIAL_OPTIONS: Options = {
   appendFooter: true,
@@ -38,6 +37,11 @@ export default class EmbeddableWidget {
    * The engine configuration
    */
   static Engine: Engine;
+
+  /**
+   * Reference to React
+   */
+  static React: any;
 
   /**
    * Widgets as HTML mapped by uid
@@ -79,8 +83,10 @@ export default class EmbeddableWidget {
     return !!EmbeddableWidget.options.singleton;
   }
 
-  static getState(uid: UID): State {
-    return EmbeddableWidget.Widget.getState(uid);
+  static getState(uid: UID): State | void {
+    if (EmbeddableWidget.Widget.getState) {
+      return EmbeddableWidget.Widget.getState(uid);
+    }
   }
 
   static resetState(uid = DEFAULT_UID, state?: State): State {
@@ -304,7 +310,6 @@ export default class EmbeddableWidget {
     props.uid = uid;
     EmbeddableWidget.options = props.options;
 
-    const widget: Widget = EmbeddableWidget.Widget;
     const component: Component = EmbeddableWidget.Engine.createElement(props);
     EmbeddableWidget.setClassName(component);
 
@@ -329,10 +334,9 @@ export default class EmbeddableWidget {
       if (EmbeddableWidget.options.appendFooter) Footer = createFooter();
       if (EmbeddableWidget.options.appendTooltip) {
         let deps: string[] = EmbeddableWidget.dependencies;
-        deps = EmbeddableWidget.Widget
-          ? deps.concat(EmbeddableWidget.Widget.dependencies)
-          : deps;
-        deps = deps.filter((d) => !!d);
+        const widgetDeps: string[] = EmbeddableWidget.Widget ? EmbeddableWidget.Widget.dependencies || [] : [];
+        deps.concat(widgetDeps).filter((d) => !!d);
+        
         if (deps.length > 0) {
           Tooltip = createTooltip({
             dependencies: deps,
@@ -365,6 +369,7 @@ export default class EmbeddableWidget {
 
       EmbeddableWidget.checkElementMounted({ el });
 
+      const widget: Widget = EmbeddableWidget.Widget;
       if (widget.externalScripts) {
         const skip: string[] = widget.externalScripts
           .filter((s: Script) => s.defer)

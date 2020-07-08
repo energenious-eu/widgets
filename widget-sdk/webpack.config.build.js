@@ -16,7 +16,7 @@ module.exports = {
       {
         from: 'src',
         to: '.',
-        ignore: ['index.ts', '*.tsx'],
+        ignore: ['*.tsx'],
       },
       // {from:"package.json", to: "package.json"},
       // {from:"webpack.config.js", to: "webpack.config.js"},

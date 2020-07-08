@@ -71,8 +71,6 @@ Simply follow the instructions above to login and change configurations, then ru
             "@babel/plugin-proposal-throw-expressions": "7.7.4",
             "@babel/plugin-syntax-dynamic-import": "7.7.4",
             "@babel/plugin-syntax-import-meta": "7.7.4",
-            "@babel/preset-typescript": "^7.10.4",
-            "@babel/preset-env": "^7.10.4",
             "babel-eslint": "10.1.0",
             "babel-loader": "8.1.0",
             "babel-preset-airbnb": "4.4.0",
@@ -163,7 +161,31 @@ Simply follow the instructions above to login and change configurations, then ru
     ```
     This file must include at least the EmbeddableWidget.Engine part, implementing the three methods <code>createElement(...)</code>, <code>render(...)</code>, and <code>unmountComponent(...)</code> - (the example above uses React and ReactDOM).
 
-    Note: If you also use ReactJS then install the basic modules: <code>npm install react react-dom</code>
+    ### React ###
+    If you also use ReactJS then install the basic modules: <code>npm install react react-dom</code>  
+
+    ### TypeScript ###
+    If you want to use TypeScript then install the necessary modules: <code>npm install typescript ts-loader @babel/preset-env @babel/preset-typescript</code>
+    Then create a <code>tsconfig.json</code> file at the root of your project and paste:
+    ```json
+    {
+        "compilerOptions": {
+            "outDir": "./dist/",
+            "sourceMap": true,
+            "strictNullChecks": true,
+            "module": "commonjs",
+            "jsx": "react",
+            "target": "es5",
+            "allowJs": true,
+            "allowSyntheticDefaultImports": true,
+            "skipLibCheck": true,
+            "esModuleInterop": true
+        },
+        "include": ["src"],
+        "exclude": ["node_modules", "dist"]
+    }
+    ```
+    
 
 7. start project
     
