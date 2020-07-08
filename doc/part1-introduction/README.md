@@ -1,5 +1,5 @@
 <p align="left"">
-    <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/modular.jpg" width="400" />
+    <img src="./media/modular.jpg" width="400" />
 </p >
 
 
@@ -65,7 +65,7 @@ Tecnojest is hosting its own Big Data platform, called Office-over-IP (O2IP). As
 In the picture below, you get already a glimpse of the benefits WDD can offer. Different micro-applications, written by two distinct developer teams using different libraries (here native JQuery, ReactJS, and Angular), can co-exist and interact in the same environment, offering a wide range of services to the end-user.
 
 <p align="center" >
-    <img src="https://gitlab.com/energenious/widgets/-/raw/master/part1-introduction/media/O2IP_dashboard.png" width="80%" />
+    <img src="./media/O2IP_dashboard.png" width="80%" />
 </p >
 
 
