@@ -15,12 +15,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
-const devMode = process.argv[process.argv.indexOf('--mode') + 1] !== 'production';
+const devMode =
+  process.argv[process.argv.indexOf('--mode') + 1] !== 'production';
 const publicDir = path.join(process.cwd(), 'public');
 const distDir = path.join(process.cwd(), 'dist');
 
 const { parseClassName } = require(path.join(__dirname, 'lib/util/parsers'));
-const title = process.env.WIDGET_TITLE || require(path.join(process.cwd(), 'package.json')).name;
+const title =
+  process.env.WIDGET_TITLE ||
+  require(path.join(process.cwd(), 'package.json')).name;
 const mainCssClass = parseClassName(process.env.WIDGET_MAIN_CSS_CLASS || title);
 const hideExplanation = !!process.env.WIDGET_HIDE_EXPLANATION;
 const staticAssetDistributionServer = process.env.WIDGET_ASSET_SERVER
@@ -46,7 +49,9 @@ var GLOBALS = {
 if (process.env.WIDGET_USE_CLEANSLATE) {
   extra_post_css_loaders.push('cssimportant-loader');
   // excluded_css_files.splice(excluded_css_files.indexOf("cleanslate-strong.css"),1);
-  GLOBALS['process.env.WIDGET_USE_CLEANSLATE'] = JSON.stringify(process.env.WIDGET_USE_CLEANSLATE);
+  GLOBALS['process.env.WIDGET_USE_CLEANSLATE'] = JSON.stringify(
+    process.env.WIDGET_USE_CLEANSLATE
+  );
 }
 
 if (!devMode && !process.env.WIDGET_UNCOMPRESSED) {
@@ -62,6 +67,23 @@ if (!devMode && !process.env.WIDGET_UNCOMPRESSED) {
 }
 ////////////////////////
 
+const babelPlugins = [
+  '@babel/plugin-syntax-dynamic-import',
+  '@babel/plugin-syntax-import-meta',
+  '@babel/plugin-proposal-class-properties',
+  '@babel/plugin-proposal-json-strings',
+  [
+    '@babel/plugin-proposal-decorators',
+    {
+      legacy: true,
+    },
+  ],
+  '@babel/plugin-proposal-function-sent',
+  '@babel/plugin-proposal-export-namespace-from',
+  '@babel/plugin-proposal-numeric-separator',
+  '@babel/plugin-proposal-throw-expressions',
+];
+
 const defaultConfig = {
   mode: process.env.NODE_ENV || 'development',
   devServer: {
@@ -73,7 +95,8 @@ const defaultConfig = {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+      'Access-Control-Allow-Headers':
+        'X-Requested-With, content-type, Authorization',
     },
   },
   plugins: [
@@ -116,40 +139,30 @@ const defaultConfig = {
     .filter((i) => i),
   module: {
     rules: [
-      // {
-      //   test: /\.js$/i,
-      //   include: [/public/],
-      //   exclude: [/node_modules/,/vendor/],
-      //   use: {
-      //     loader: 'raw-loader',
-      //     options: {
-      //       esModule: true
-      //     }
-      //   }
-      // },
       {
-        test: /\.(t|j)sx?$/,
+        test: /\.tsx?$/,
+        exclude: [/node_modules/, /vendor/],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/typescript', '@babel/env', 'airbnb'],
+              plugins: babelPlugins,
+            },
+          },
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
+      {
+        test: /\.jsx?$/,
         exclude: [/node_modules/, /vendor/],
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/typescript', '@babel/env', 'airbnb'],
-            plugins: [
-              '@babel/plugin-syntax-dynamic-import',
-              '@babel/plugin-syntax-import-meta',
-              '@babel/plugin-proposal-class-properties',
-              '@babel/plugin-proposal-json-strings',
-              [
-                '@babel/plugin-proposal-decorators',
-                {
-                  legacy: true,
-                },
-              ],
-              '@babel/plugin-proposal-function-sent',
-              '@babel/plugin-proposal-export-namespace-from',
-              '@babel/plugin-proposal-numeric-separator',
-              '@babel/plugin-proposal-throw-expressions',
-            ],
+            presets: ['airbnb'],
+            plugins: babelPlugins,
           },
         },
       },
@@ -159,35 +172,6 @@ const defaultConfig = {
         exclude: [/node_modules/, /vendor/],
         loader: 'source-map-loader',
       },
-      ////////////
-      // {
-      //   test: /\.(js|jsx)$/,
-      //   include: [/something/],
-      //   use: {
-      //     loader: 'babel-loader',
-      //     options: {
-      //       presets: [
-      //         "airbnb"
-      //       ],
-      //       plugins: [
-      //         "@babel/plugin-syntax-dynamic-import",
-      //         "@babel/plugin-syntax-import-meta",
-      //         "@babel/plugin-proposal-class-properties",
-      //         "@babel/plugin-proposal-json-strings",
-      //         [
-      //           "@babel/plugin-proposal-decorators",
-      //           {
-      //             "legacy": true
-      //           }
-      //         ],
-      //         "@babel/plugin-proposal-function-sent",
-      //         "@babel/plugin-proposal-export-namespace-from",
-      //         "@babel/plugin-proposal-numeric-separator",
-      //         "@babel/plugin-proposal-throw-expressions"
-      //       ]
-      //     }
-      //   }
-      // },
       // {
       //   test: process.env.WIDGET_ENABLE_ESLINT ? /\.js$/ : () => false,
       //   exclude: [/node_modules/,/vendor/,/public/],
@@ -293,17 +277,29 @@ function fsExistsSync(myDir) {
   }
 }
 
+function getEntry() {
+  const directory = 'src';
+  const filename = 'index';
+
+  const getPath = (extension) => path.join(process.cwd(), `${directory}/${filename}.${extension}`);
+
+  let index = getPath('js');
+
+  if (fsExistsSync(getPath('tsx'))) {
+    index = getPath('tsx');
+  } else if (fsExistsSync(getPath('jsx'))) {
+    index = getPath('jsx');
+  } else if (fsExistsSync(getPath('js'))) {
+    index = getPath('js');
+  }
+
+  return { index };
+}
+
 module.exports = [
   {
     ...defaultConfig,
-    entry: fsExistsSync(path.join(process.cwd(), 'something/index.js'))
-      ? {
-          index: path.join(process.cwd(), 'src/index.js'),
-          asset: path.join(process.cwd(), 'something/index.js'),
-        }
-      : {
-          index: path.join(process.cwd(), 'src/index.js'),
-        },
+    entry: getEntry(),
     output: {
       path: distDir,
       // https://stackoverflow.com/questions/31191884/set-up-webpack-to-run-locally-on-a-custom-domain-over-https
@@ -322,6 +318,6 @@ module.exports = [
     //  },
     optimization: {
       // minimizer: [new UglifyJsPlugin()],
-    }
+    },
   },
 ];

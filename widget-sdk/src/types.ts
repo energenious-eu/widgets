@@ -2,7 +2,7 @@
 export type FIX_TYPE = any;
 
 export type State = any;
-export type Component = JSX.Element | any;
+export type Component = any;
 export type Dependencies = string[];
 
 export type UID = string;
@@ -88,15 +88,15 @@ export interface Style {
   name: string;
 }
 
-export interface Widget {
-  getState(uid: UID): State;
+export interface Widget extends Component {
+  getState?: (uid: UID) => State;
   // Used for React implementation of widgets
   defaultProps?: { options: Options };
-  options: Options;
-  externalScripts: Script[];
-  externalStyles: Style[];
-  dependencies: Dependencies;
-  packageJson: PackageJson;
+  options?: Options;
+  externalScripts?: Script[];
+  externalStyles?: Style[];
+  dependencies?: Dependencies;
+  packageJson?: PackageJson;
 }
 
 export interface Elements {
