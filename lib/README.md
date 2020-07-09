@@ -2,19 +2,22 @@
 
 <!-- MarkdownTOC autolink="true" autoanchor="true" -->
 
-- [Get started](#get-started)
+- [Tecnojest Widget Base](#tecnojest-widget-base)
+  - [Get started](#get-started)
     - [Existing project](#existing-project)
     - [New project](#new-project)
-    - [Refractoring code base](#refractoring-code-base)
-        - [ReactJS](#reactjs)
-- [Configuration](#configuration)
+    - [React](#react)
+    - [TypeScript](#typescript)
+    - [Refractoring the code base](#refractoring-the-code-base)
+      - [ReactJS](#reactjs)
+  - [Configuration](#configuration)
     - [Object attributes](#object-attributes)
     - [Environmental variables](#environmental-variables)
     - [ReactJS](#reactjs-1)
-- [Best practices](#best-practices)
+  - [Best practices](#best-practices)
     - [Variables](#variables)
     - [Prop types](#prop-types)
-- [Contribute](#contribute)
+  - [Contribute](#contribute)
     - [Hot reload](#hot-reload)
     - [Publish new version](#publish-new-version)
 
@@ -35,7 +38,7 @@ if during the first `npm login` step you receive a `UNABLE_TO_VERIFY_LEAF_SIGNAT
 
     npm config set strict-ssl false
 
-and try again
+and try again.
 
 <a id="existing-project"></a>
 ### Existing project ###
@@ -48,15 +51,15 @@ Simply follow the instructions above to login and change configurations, then ru
 <a id="new-project"></a>
 ### New project ###
 
-1. init new project
+1. Init new project
 
         npm init
 
-2. install widget base
+2. Install widget base
 
         npm install @tecnojest/widget-base
 
-3. add peer dependencies into devDependcies of package.json file:
+3. Add peer dependencies into devDependcies of package.json file:
 
     ```json
     "devDependencies": {
@@ -111,9 +114,10 @@ Simply follow the instructions above to login and change configurations, then ru
             "webpack-shell-plugin": "^0.5.0"
         }
     ```
-3. (optional) create a file called <code>.gitignore</code> and paste the following lines:
+3. (optional) Create a file called <code>.gitignore</code> and paste the following lines:
 
-    ```gitignore
+    ```
+    gitignore
     node_modules
     coverage
     **/dist/
@@ -122,11 +126,11 @@ Simply follow the instructions above to login and change configurations, then ru
     package-lock.json
     ```
 
-4. install remaining packages (from official registry to speed up download)
+4. Install remaining packages (from official registry to speed up download)
 
         npm install --registry=https://registry.npmjs.org/
 
-5. add start and build script into script part of package.json:
+5. Add start and build script into script part of package.json:
 
     ```json
     "scripts": {
@@ -136,63 +140,69 @@ Simply follow the instructions above to login and change configurations, then ru
     }
     ```
 
-6. create a "main" file named src/index.js in the project root dir, implementing the basic methods of the JavaScript API: 
-    * <code>createElement(props)</code>: ...
-    * <code>render(component,el)</code>: ...
-    * <code>unmountComponentAtNode(node)</code>: ...
+<a id="index-file"></a>
+6. Create a "main" file named src/index.js in the project root dir, implementing the basic methods of the JavaScript API:
 
-    when developing a widget based on React the configuration would be:
+* <code>createElement(props)</code>: ...
+* <code>render(component,el)</code>: ...
+* <code>unmountComponentAtNode(node)</code>: ...
 
-    ```js
-    import EmbeddableWidget from "@tecnojest/widget-base"
-    import Widget from "./components/widget";
-    import React from 'react';
-    import ReactDOM from 'react-dom';
+when developing a widget based on React the configuration would be:
 
-    EmbeddableWidget.Widget = Widget;
-    EmbeddableWidget.React = React;
-    EmbeddableWidget.Engine = {
-        createElement: (props) => { return <Widget className={process.env.WIDGET_MAIN_CSS_CLASS} {...props}/> },
-        render: (component,el) => ReactDOM.render(component,el),
-        unmountComponentAtNode: (node) => ReactDOM.unmountComponentAtNode(node)
-    };
+ ```jsx
+ import EmbeddableWidget from "@tecnojest/widget-base"
+ import Widget from "./components/widget";
+ import React from 'react';
+ import ReactDOM from 'react-dom';
 
-    export default EmbeddableWidget;
-    ```
-    This file must include at least the EmbeddableWidget.Engine part, implementing the three methods <code>createElement(...)</code>, <code>render(...)</code>, and <code>unmountComponent(...)</code> - (the example above uses React and ReactDOM).
+ EmbeddableWidget.Widget = Widget;
+ EmbeddableWidget.React = React;
+ EmbeddableWidget.Engine = {
+     createElement: (props) => { return <Widget className={process.env.WIDGET_MAIN_CSS_CLASS} {...props}/> },
+     render: (component,el) => ReactDOM.render(component,el),
+     unmountComponentAtNode: (node) => ReactDOM.unmountComponentAtNode(node)
+ };
 
-    ### React ###
-    If you also use ReactJS then install the basic modules: <code>npm install react react-dom</code>  
+ export default EmbeddableWidget;
+ ```
 
-    ### TypeScript ###
-    If you want to use TypeScript then install the necessary modules: <code>npm install typescript ts-loader @babel/preset-env @babel/preset-typescript</code>
-    Then create a <code>tsconfig.json</code> file at the root of your project and paste:
-    ```json
-    {
-        "compilerOptions": {
-            "outDir": "./dist/",
-            "sourceMap": true,
-            "strictNullChecks": true,
-            "module": "commonjs",
-            "jsx": "react",
-            "target": "es5",
-            "allowJs": true,
-            "allowSyntheticDefaultImports": true,
-            "skipLibCheck": true,
-            "esModuleInterop": true
-        },
-        "include": ["src"],
-        "exclude": ["node_modules", "dist"]
-    }
-    ```
+ This file must include at least the EmbeddableWidget.Engine part, implementing the three methods <code>createElement(...)</code>, <code>render(...)</code>, and <code>unmountComponent(...)</code> - (the example above uses React and ReactDOM).
+
+ ### React ###
+ If you also use ReactJS then install the basic modules: <code>npm install react react-dom</code>  
+
+ ### TypeScript ###
+ If you want to use TypeScript then install the necessary modules:
+
+ <code>npm install typescript ts-loader @babel/preset-env @babel/preset-typescript</code> 
+
+ Then create a <code>tsconfig.json</code> file at the root of your project and paste the following configuration:
+ ```json
+ {
+     "compilerOptions": {
+         "outDir": "./dist/",
+         "sourceMap": true,
+         "strictNullChecks": true,
+         "module": "commonjs",
+         "jsx": "react",
+         "target": "es5",
+         "allowJs": true,
+         "allowSyntheticDefaultImports": true,
+         "skipLibCheck": true,
+         "esModuleInterop": true
+     },
+     "include": ["src"],
+     "exclude": ["node_modules", "dist"]
+ }
+ ```
     
 
-7. start project
+7. Start the project
     
         npm start
 
 <a id="refractoring-code-base"></a>
-### Refractoring code base ###
+### Refractoring the code base ###
 
 <a id="reactjs"></a>
 #### ReactJS ####
@@ -210,24 +220,30 @@ Simply follow the instructions above to login and change configurations, then ru
 
 You can define the following static in the main Widget class:
 
-* <code>external_scripts</code> (static) e.g.:
+* <code>externalScripts</code> (static) e.g.:
 
-        static external_scripts = [{
-            'name': 'jquery-validate',
-            'src': 'https://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js'
-            'depends_on': 'jquery'
-        },{
-            'name': 'jquery',
-            'src': 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js'
-        }];
+    ```js
+    static externalScripts = [
+      {
+        'name': 'jquery-validate',
+        'src': 'https://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js'
+        'depends_on': 'jquery'
+      },
+      {
+          'name': 'jquery',
+          'src': 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js'
+      }
+    ];
+    ```
 
 * <code>options</code> (static) - options that apply to all widgets in the same namespace, e.g.:
-    
-        static options: {        
-          appendFooter: false,
-          appendTooltip: true,
-          singleton: true,
-        }
+    ```js
+      static options = {        
+        appendFooter: false,
+        appendTooltip: true,
+        singleton: true
+      }
+    ```
 
 
 <a id="environmental-variables"></a>
