@@ -8,16 +8,17 @@ export type Dependencies = string[];
 export type UID = string;
 
 export interface Options {
-  appendFooter: boolean;
-  appendTooltip: boolean;
-  singleton: boolean;
-  setCookie: boolean;
-  setCookieDomain: string | null;
-  loadScriptAJAX: boolean;
+  appendFooter?: boolean;
+  appendTooltip?: boolean;
+  singleton?: boolean;
+  setCookie?: boolean;
+  setCookieDomain?: string | null;
+  loadScriptAJAX?: boolean;
   token?: string;
-  tokenName: string;
-  className: string;
+  tokenName?: string;
+  className?: string;
   credentials?: string | Object;
+  scope?: string;
 }
 
 export interface Props {
@@ -25,6 +26,7 @@ export interface Props {
   uid: UID;
   options: Options;
   className: string;
+  [key: string]: unknown;
 }
 
 export interface Engine {

@@ -18,6 +18,7 @@ import {
 import { createFooter } from './util/create-footer';
 import { createTooltip } from './util/create-tooltip';
 import { prepareScripts } from './util/prepare-scripts';
+import EventManager from './events/event-manager';
 
 const DEFAULT_UID: UID = '-1';
 
@@ -51,7 +52,7 @@ export default class EmbeddableWidget {
   /**
    * Configuration options
    */
-  static options: Partial<Options> = {};
+  static options: Options = {};
 
   /**
    * The actual widget component
@@ -308,6 +309,9 @@ export default class EmbeddableWidget {
 
     props.options = EmbeddableWidget.overrideOptions(props.options);
     props.uid = uid;
+    const scope: string = props.options.scope || process.env.WIDGET_TITLE || props.uid;
+    props.eventManager = new EventManager(scope, uid);
+
     EmbeddableWidget.options = props.options;
 
     const component: Component = EmbeddableWidget.Engine.createElement(props);
