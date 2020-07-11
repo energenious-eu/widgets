@@ -12,10 +12,11 @@ before_script:
   - cd lib/
 
 stages:
-  - build
+  - build code
   # - pages
 
-build:
+build-stage:
+  stage: build code
   script:
     - npm install
     - npm run build
