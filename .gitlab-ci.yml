@@ -8,11 +8,14 @@ cache:
     - lib/node_modules/
     - node_modules/
 
+before_script:
+  - cd lib/
+
 stages:
   - build
   # - pages
 
-pages:
+build:
   script:
     - npm install
     - npm run build
@@ -21,8 +24,6 @@ pages:
       - public
   only:
     - master
-  before_script:
-    - cd lib/
 
 # pages:
 #   script:
