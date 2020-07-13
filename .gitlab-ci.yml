@@ -25,7 +25,6 @@ build-stage:
       - public
   only:
     - master
-
 # pages:
 #   script:
 #     # - npm install
