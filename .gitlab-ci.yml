@@ -24,8 +24,7 @@ build-stage:
     paths:
       - public
   only:
-    - master
-
+    - development
 # pages:
 #   script:
 #     # - npm install
