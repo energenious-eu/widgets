@@ -309,7 +309,9 @@ export default class EmbeddableWidget {
 
     props.options = EmbeddableWidget.overrideOptions(props.options);
     props.uid = uid;
-    const scope: string = props.options.scope || process.env.WIDGET_TITLE || props.uid;
+
+    const scope: string =
+      props.options.scope || process.env.WIDGET_TITLE || props.uid;
     props.eventManager = new EventManager(scope, uid);
 
     EmbeddableWidget.options = props.options;
@@ -338,9 +340,11 @@ export default class EmbeddableWidget {
       if (EmbeddableWidget.options.appendFooter) Footer = createFooter();
       if (EmbeddableWidget.options.appendTooltip) {
         let deps: string[] = EmbeddableWidget.dependencies;
-        const widgetDeps: string[] = EmbeddableWidget.Widget ? EmbeddableWidget.Widget.dependencies || [] : [];
+        const widgetDeps: string[] = EmbeddableWidget.Widget
+          ? EmbeddableWidget.Widget.dependencies || []
+          : [];
         deps.concat(widgetDeps).filter((d) => !!d);
-        
+
         if (deps.length > 0) {
           Tooltip = createTooltip({
             dependencies: deps,
@@ -351,15 +355,11 @@ export default class EmbeddableWidget {
         }
       }
 
-      try {
-        EmbeddableWidget.Engine.render(component, el);
-      } catch (e) {
-        console.error('error while rendering: ', e.message);
-      } finally {
-        if (Footer) el.appendChild(Footer);
-        if (Tooltip) el.appendChild(Tooltip);
-        EmbeddableWidget.addElement(el, elementUid);
-      }
+      if (Footer) el.appendChild(Footer);
+      if (Tooltip) el.appendChild(Tooltip);
+      EmbeddableWidget.addElement(el, elementUid);
+
+      // TODO: this is responsible for rendering which is bad, to refactor
       EmbeddableWidget.resetState(elementUid, state);
     }
 
