@@ -6,6 +6,7 @@
   - [Get started](#get-started)
     - [Existing project](#existing-project)
     - [New project](#new-project)
+      - [Index file](#index-file)
     - [React](#react)
     - [TypeScript](#typescript)
     - [Refractoring the code base](#refractoring-the-code-base)
@@ -140,8 +141,7 @@ Simply follow the instructions above to login and change configurations, then ru
     }
     ```
 
-<a id="index-file"></a>
-6. Create a "main" file named src/index.js in the project root dir, implementing the basic methods of the JavaScript API:
+6. Create a main file named src/index.js in the project root dir, implementing the basic methods of the JavaScript API:
 
 * <code>createElement(props)</code>: ...
 * <code>render(component,el)</code>: ...
@@ -149,6 +149,7 @@ Simply follow the instructions above to login and change configurations, then ru
 
 when developing a widget based on React the configuration would be:
 
+#### Index file
  ```jsx
  import EmbeddableWidget from "@tecnojest/widget-base"
  import Widget from "./components/widget";
