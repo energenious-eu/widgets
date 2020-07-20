@@ -12,11 +12,11 @@ before_script:
   - cd lib/
 
 stages:
-  - build code
+  - build
   - deploy
 
-build-stage:
-  stage: build code
+build:
+  stage: build
   script:
     - npm install
     - npm run build
@@ -24,9 +24,9 @@ build-stage:
     paths:
       - public
   only:
-    - master
+    - development
 
-pages:
+deploy:
   stage: deploy
   script:
     - npm install
