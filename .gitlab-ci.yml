@@ -13,7 +13,7 @@ before_script:
 
 stages:
   - build code
-  # - pages
+  - deploy
 
 build-stage:
   stage: build code
@@ -25,12 +25,12 @@ build-stage:
       - public
   only:
     - master
-# pages:
-#   script:
-#     # - npm install
-#     - ./node_modules/.bin/gatsby build --prefix-paths
-#   artifacts:
-#     paths:
-#       - public
-#   only:
-#     - master
+
+pages:
+  stage: deploy
+  script:
+    - npm install
+    - npm run storybook:build
+  artifacts:
+    paths:
+      - public
