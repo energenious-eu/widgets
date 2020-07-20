@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --config ./node_modules/@tecnojest/widget-base/webpack.config.js --host 0.0.0.0"
   },
   "dependencies": {
-    "@tecnojest/widget-base": "^1.4.5",
+    "@tecnojest/widget-base": "^1.4.13",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -53,6 +53,8 @@
     "source-map-loader": "^1.0.1",
     "style-loader": "1.0.1",
     "tape": "^4.13.0",
+    "ts-loader": "^8.0.1",
+    "typescript": "^3.9.7",
     "uglify-loader": "^3.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.0.0",
