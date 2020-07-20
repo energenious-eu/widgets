@@ -90,20 +90,18 @@ export default class EmbeddableWidget {
     }
   }
 
-  static resetState(uid = DEFAULT_UID, state?: State): State {
+  static resetState(uid = DEFAULT_UID, state?: State, props?: { [key: string]: any }): State {
     // TODO: refactor this to only check whether the element is valid
     EmbeddableWidget.getElement(uid);
 
     if (!EmbeddableWidget.Engine.resetState) {
-      console.warn(
-        'EmbeddableWidget does not implement the .resetState() function!'
-      );
+      console.warn('EmbeddableWidget does not implement the .resetState() function!');
     } else {
       EmbeddableWidget.Engine.resetState(uid, state);
       state = EmbeddableWidget.getState(uid);
     }
 
-    EmbeddableWidget.refresh({ uid });
+    EmbeddableWidget.refresh({ uid, ...props });
     return state;
   }
 
@@ -132,9 +130,7 @@ export default class EmbeddableWidget {
 
     const el: HTMLElement | undefined = EmbeddableWidget.getElement(uid);
     if (!el) {
-      throw new Error(
-        'EmbeddableWidget has not been mounted yet, mount first!'
-      );
+      throw new Error('EmbeddableWidget has not been mounted yet, mount first!');
     }
 
     // Make sure that user cannot override options while refreshing
@@ -164,10 +160,7 @@ export default class EmbeddableWidget {
     if (parentElement) {
       const pel = document.querySelector(parentElement);
       const matches = Array.from<HTMLElement>(pel.querySelectorAll('div[uid]'));
-      if (
-        matches.filter((n) => n.getAttribute('uid') === el.getAttribute('uid'))
-          .length === 0
-      ) {
+      if (matches.filter((n) => n.getAttribute('uid') === el.getAttribute('uid')).length === 0) {
         pel.appendChild(el);
       }
     }
@@ -194,9 +187,7 @@ export default class EmbeddableWidget {
 
     if (options.token) {
       let cookie: string = 'token=' + options.token + '; secure';
-      cookie += options.setCookieDomain
-        ? `domain=.${options.setCookieDomain}`
-        : '';
+      cookie += options.setCookieDomain ? `domain=.${options.setCookieDomain}` : '';
       if (options.setCookie) document.cookie = cookie;
       delete options.token;
     }
@@ -211,21 +202,13 @@ export default class EmbeddableWidget {
     }
   }
 
-  static checkElementMounted({
-    el,
-    mount = true,
-  }: {
-    el: HTMLElement;
-    mount?: boolean;
-  }) {
+  static checkElementMounted({ el, mount = true }: { el: HTMLElement; mount?: boolean }) {
     const uidAttribute: string | null = el.getAttribute('uid');
     const uid = uidAttribute ? uidAttribute : null;
 
     if (mount) {
       // check if element does not exist in DOM
-      let matches: HTMLElement[] = Array.from<HTMLElement>(
-        document.querySelectorAll('[uid]')
-      );
+      let matches: HTMLElement[] = Array.from<HTMLElement>(document.querySelectorAll('[uid]'));
       matches = matches.filter((m) => m.getAttribute('uid') == uidAttribute);
       if (matches.length > 1) {
         matches.map((m, i) => {
@@ -240,19 +223,11 @@ export default class EmbeddableWidget {
 
       const match: boolean = matches.length > 0;
       if (!match && uid !== null && EmbeddableWidget.elements[uid]) {
-        console.warn(
-          'Element with uid',
-          uid,
-          'was unexpectedly removed from dom!'
-        );
+        console.warn('Element with uid', uid, 'was unexpectedly removed from dom!');
         EmbeddableWidget.removeElement(el);
       } else if (match && uid !== null && !EmbeddableWidget.elements[uid]) {
         // this will never be reached ... but it could be interesting to implement it !!!
-        console.warn(
-          'Element with uid',
-          uid,
-          'was unexpectedly removed from namespace list!'
-        );
+        console.warn('Element with uid', uid, 'was unexpectedly removed from namespace list!');
         EmbeddableWidget.addElement(el);
       }
     }
@@ -260,9 +235,7 @@ export default class EmbeddableWidget {
     const elements: Elements = EmbeddableWidget.elements;
     if (mount && uid !== null) {
       if (EmbeddableWidget.isSingleton() && Object.keys(elements).length > 0) {
-        throw new Error(
-          'EmbeddableWidget is singleton, cannot be mounted more than once!'
-        );
+        throw new Error('EmbeddableWidget is singleton, cannot be mounted more than once!');
       }
       if (elements[uid]) {
         throw new Error('EmbeddableWidget is already mounted, unmount first!');
@@ -276,8 +249,7 @@ export default class EmbeddableWidget {
   static addElement(el: HTMLElement, uid?: UID): void {
     const actualUID = uid || el.getAttribute('uid');
     if (actualUID) {
-      EmbeddableWidget.elements[actualUID] =
-        EmbeddableWidget.elements[actualUID] || el;
+      EmbeddableWidget.elements[actualUID] = EmbeddableWidget.elements[actualUID] || el;
     }
   }
 
@@ -291,9 +263,7 @@ export default class EmbeddableWidget {
   static getElement(uid: UID = DEFAULT_UID): HTMLElement | undefined {
     const el: HTMLElement | undefined = EmbeddableWidget.elements[uid];
     if (!el) {
-      throw new Error(
-        'EmbeddableWidget does not contain element with id, ' + uid
-      );
+      throw new Error('EmbeddableWidget does not contain element with id, ' + uid);
     }
     return el;
   }
@@ -309,8 +279,9 @@ export default class EmbeddableWidget {
 
     props.options = EmbeddableWidget.overrideOptions(props.options);
     props.uid = uid;
+
     const scope: string = props.options.scope || process.env.WIDGET_TITLE || props.uid;
-    props.eventManager = new EventManager(scope, uid);
+    props.eventManager = new EventManager(scope, uid, parentElement);
 
     EmbeddableWidget.options = props.options;
 
@@ -338,29 +309,25 @@ export default class EmbeddableWidget {
       if (EmbeddableWidget.options.appendFooter) Footer = createFooter();
       if (EmbeddableWidget.options.appendTooltip) {
         let deps: string[] = EmbeddableWidget.dependencies;
-        const widgetDeps: string[] = EmbeddableWidget.Widget ? EmbeddableWidget.Widget.dependencies || [] : [];
+        const widgetDeps: string[] = EmbeddableWidget.Widget
+          ? EmbeddableWidget.Widget.dependencies || []
+          : [];
         deps.concat(widgetDeps).filter((d) => !!d);
-        
+
         if (deps.length > 0) {
           Tooltip = createTooltip({
             dependencies: deps,
-            packageJson:
-              EmbeddableWidget.packageJson ||
-              EmbeddableWidget.Widget.packageJson,
+            packageJson: EmbeddableWidget.packageJson || EmbeddableWidget.Widget.packageJson,
           });
         }
       }
 
-      try {
-        EmbeddableWidget.Engine.render(component, el);
-      } catch (e) {
-        console.error('error while rendering: ', e.message);
-      } finally {
-        if (Footer) el.appendChild(Footer);
-        if (Tooltip) el.appendChild(Tooltip);
-        EmbeddableWidget.addElement(el, elementUid);
-      }
-      EmbeddableWidget.resetState(elementUid, state);
+      if (Footer) el.appendChild(Footer);
+      if (Tooltip) el.appendChild(Tooltip);
+      EmbeddableWidget.addElement(el, elementUid);
+
+      // TODO: this is responsible for rendering which is bad, to refactor
+      EmbeddableWidget.resetState(elementUid, state, props);
     }
 
     function resolve(): void {

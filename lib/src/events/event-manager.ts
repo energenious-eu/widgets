@@ -3,15 +3,18 @@ import SubscriptionList from './subscriptions-list';
 import { Detail, SubscriptionType, Subscription } from './types';
 
 export default class EventManager {
-  private title: string;
-
+  private scope: string;
   private uid: string;
+  private eventRoot: HTMLElement;
 
-  private subscriptions: SubscriptionList = new SubscriptionList();
+  private subscriptions: SubscriptionList;
 
-  constructor(title: string, uid: string) {
-    this.title = title;
+  constructor(scope: string, uid: string, parentElementId: string) {
+    this.scope = scope;
     this.uid = uid;
+    this.eventRoot = document.querySelector(parentElementId)?.parentElement || document.body;
+
+    this.subscriptions = new SubscriptionList(this.eventRoot);
   }
 
   private emit<T = any>(topic: string, detail: Detail<T>): void {
@@ -19,7 +22,7 @@ export default class EventManager {
       detail,
     });
 
-    dispatchEvent(event);
+    this.eventRoot.dispatchEvent(event);
   }
 
   broadcast<T = any>(topic: string, params: T): void {
@@ -27,7 +30,7 @@ export default class EventManager {
   }
 
   scopedBroadcast<T = any>(topic: string, params: T): void {
-    this.emit<T>(this.scopeEventName(topic), { params });
+    this.emit<T>(this.scopeTopic(topic), { params });
   }
 
   multicast<T = any>(topic: string, uids: string[], params: T): void {
@@ -39,10 +42,10 @@ export default class EventManager {
   scopedMulticast<T = any>(topic: string, uids: string[], params: T): void {
     const detail: Detail<T> = { uids, params };
 
-    this.emit<T>(this.scopeEventName(topic), detail);
+    this.emit<T>(this.scopeTopic(topic), detail);
   }
 
-  sub<T = any>({
+  private sub<T = any>({
     topic,
     type = SubscriptionType.FULL,
     callback,
@@ -55,10 +58,7 @@ export default class EventManager {
       const uids: UID[] = e.detail.uids || [];
 
       // If broadcast or uid specified in multicast
-      if (
-        (uids.length === 0 && type === SubscriptionType.FULL) ||
-        uids.includes(this.uid)
-      ) {
+      if ((uids.length === 0 && type === SubscriptionType.FULL) || uids.includes(this.uid)) {
         callback(e.detail.params);
       }
     };
@@ -75,7 +75,7 @@ export default class EventManager {
   }
 
   scopedSubscribe<T = any>(topic: string, callback: (detail: T) => void) {
-    this.sub({ topic: this.scopeEventName(topic), callback });
+    this.sub({ topic: this.scopeTopic(topic), callback });
   }
 
   selectiveSubscribe<T = any>(topic: string, callback: (detail: T) => void) {
@@ -86,7 +86,11 @@ export default class EventManager {
     this.subscriptions.remove(topic, type);
   }
 
-  private scopeEventName(topic: string) {
-    return `${this.title}_${topic}`;
+  scopedUnsubscribe(topic: string) {
+    this.subscriptions.remove(this.scopeTopic(topic));
+  }
+
+  private scopeTopic(topic: string) {
+    return `${this.scope}_${topic}`;
   }
 }
