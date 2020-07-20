@@ -1,7 +1,7 @@
 {
   "name": "@tecnojest/widget-base",
   "author": "Tecnojest srl https://www.invidea.it",
-  "version": "1.4.13",
+  "version": "1.4.14",
   "publishConfig": {
     "registry": "https://npm.invidea.it"
   },
@@ -15,12 +15,13 @@
     "deploy": "npm run-script prepublish && npm version patch && npm publish --registry=https://npm.invidea.it",
     "prepublish": "rm -rf lib && tsc && webpack --config webpack.config.build.js",
     "prepare-deploy": "touch .npmignore && echo -e 'src/' << .npmignore",
-    "build-windows": "set NODE_ENV=production && webpack-cli --mode production",
-    "build": "NODE_ENV=production webpack-cli --mode production",
+    "build-windows": "set NODE_ENV=production tsc && webpack --config webpack.config.build.js",
+    "build": "NODE_ENV=production tsc && webpack --config webpack.config.build.js",
     "start": "webpack-dev-server",
     "test-update-snapshots": "jest --updateSnapshot",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook:build": "build-storybook -c .storybook -o ../public",
+    "storybook:serve": "npx http-server ../public"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
