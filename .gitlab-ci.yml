@@ -22,7 +22,7 @@ build:
     - npm run build
   artifacts:
     paths:
-      - public
+      - lib
   only:
     - development
 
