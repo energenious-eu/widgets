@@ -45,9 +45,9 @@ and try again.
 
 ### Existing project
 
-Simply follow the instructions above to login and change configurations, then run the usual routine:  
-  
- npm install
+Simply follow the instructions above to login and change configurations, then run the usual routine:
+
+npm install
 npm start
 
 <a id="new-project"></a>
@@ -218,7 +218,7 @@ Then create a <code>tsconfig.json</code> file at the root of your project and pa
 
 #### ReactJS
 
-- If you have bootstrapped your application using the <code>create-react-app</code> scripts, follow the steps for getting started in an [New project](#new-project) and make sure that you substitute the content of the default index.js file with the new index.js from step 5. Simply change this line in that code snippet:
+If you have bootstrapped your application using the <code>create-react-app</code> scripts, follow the steps for getting started in an [New project](#new-project) and make sure that you substitute the content of the default index.js file with the new index.js from step 5. Simply change this line in that code snippet:
 
         import Widget from "./App";
 
@@ -249,12 +249,42 @@ You can define the following static in the main Widget class:
   ```
 
 - <code>options</code> (static) - options that apply to all widgets in the same namespace, e.g.:
-  ```js
-    static options = {
-      appendFooter: false,
-      appendTooltip: true,
-      singleton: true
-    }
+
+  ```ts
+  static options: Options = {
+    appendFooter: true;
+    appendTooltip: true;
+    singleton: true;
+  }
+  ```
+
+  The above are a subset of the `Options` object below:
+
+  ```ts
+  interface Options {
+    // should append a footer at the bottom
+    appendFooter?: boolean;
+    // should append a tooltip with dependencies at the bottom
+    appendTooltip?: boolean;
+    // can only one widget of the type exist
+    singleton?: boolean;
+    // should a cookie be set with the token
+    setCookie?: boolean;
+    // cookie domain used for setting the cookie
+    setCookieDomain?: string | null;
+    // should use AJAX to load the script instead of appending a <script> tag
+    loadScriptAJAX?: boolean;
+    // the token used for authentication
+    token?: string;
+    // name of the token (the key in localstorage)
+    tokenName?: string;
+    // main css class of the widget
+    className?: string;
+    // credentials can be saved here from the hosting environment
+    credentials?: string | Object;
+    // can be used to emit scoped events
+    scope?: string;
+  }
   ```
 
 <a id="environmental-variables"></a>
