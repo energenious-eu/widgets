@@ -176,13 +176,14 @@ export default class EmbeddableWidget {
   }
 
   private static overrideOptions(newOptions: Options): Options {
-    const defaultOptions: Partial<Options> = this.Widget.defaultProps
+    const defaultOptionsFromProps: Partial<Options> = this.Widget.defaultProps
       ? this.Widget.defaultProps.options
-      : this.Widget.options || {};
+      : {};
 
     const options: Options = {
       ...INITIAL_OPTIONS,
-      ...defaultOptions,
+      ...defaultOptionsFromProps,
+      ...this.Widget.options,
       ...EmbeddableWidget.options,
       ...newOptions,
     };
@@ -193,6 +194,7 @@ export default class EmbeddableWidget {
       if (options.setCookie) document.cookie = cookie;
       delete options.token;
     }
+
     return options;
   }
 
@@ -314,7 +316,8 @@ export default class EmbeddableWidget {
         const widgetDeps: string[] = EmbeddableWidget.Widget
           ? EmbeddableWidget.Widget.dependencies || []
           : [];
-        deps.concat(widgetDeps).filter((d) => !!d);
+
+        deps = deps.concat(widgetDeps).filter((d) => !!d);
 
         if (deps.length > 0) {
           Tooltip = createTooltip({
@@ -324,12 +327,12 @@ export default class EmbeddableWidget {
         }
       }
 
+      EmbeddableWidget.Engine.render(component, el);
+
       if (Footer) el.appendChild(Footer);
       if (Tooltip) el.appendChild(Tooltip);
       EmbeddableWidget.addElement(el, elementUid);
-
       EmbeddableWidget.resetState(elementUid, state, props);
-      EmbeddableWidget.Engine.render(component, el);
     }
 
     function resolve(): void {
