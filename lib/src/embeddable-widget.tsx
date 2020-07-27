@@ -124,7 +124,7 @@ export default class EmbeddableWidget {
     uid?: UID;
     [key: string]: any;
   } = {}) {
-    // TODO: use it only in debug mode
+    // TODO: use console.log only in debug mode
     if (!remount) console.log('Refreshing Widget');
     if (remount) console.log('Remounting Widget');
 
@@ -165,7 +165,9 @@ export default class EmbeddableWidget {
       }
     }
 
-    EmbeddableWidget.Engine.render(component, el);
+    if (remount) {
+      EmbeddableWidget.Engine.render(component, el);
+    }
   }
 
   static getOptions(): Partial<Options> {
@@ -326,8 +328,8 @@ export default class EmbeddableWidget {
       if (Tooltip) el.appendChild(Tooltip);
       EmbeddableWidget.addElement(el, elementUid);
 
-      // TODO: this is responsible for rendering which is bad, to refactor
       EmbeddableWidget.resetState(elementUid, state, props);
+      EmbeddableWidget.Engine.render(component, el);
     }
 
     function resolve(): void {
