@@ -193,6 +193,7 @@ export default class EmbeddableWidget {
       if (options.setCookie) document.cookie = cookie;
       delete options.token;
     }
+
     return options;
   }
 
@@ -324,12 +325,12 @@ export default class EmbeddableWidget {
         }
       }
 
+      EmbeddableWidget.Engine.render(component, el);
+
       if (Footer) el.appendChild(Footer);
       if (Tooltip) el.appendChild(Tooltip);
       EmbeddableWidget.addElement(el, elementUid);
-
       EmbeddableWidget.resetState(elementUid, state, props);
-      EmbeddableWidget.Engine.render(component, el);
     }
 
     function resolve(): void {
