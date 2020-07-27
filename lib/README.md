@@ -250,6 +250,8 @@ You can define the following static in the main Widget class:
 
 - <code>options</code> (static) - options that apply to all widgets in the same namespace, e.g.:
 
+  > They will override `options` from `defaultProps`
+
   ```ts
   static options: Options = {
     appendFooter: true;
@@ -308,6 +310,8 @@ The following environmental variables are evaluated at runtime, overwrite them t
 If you use any default props in the component, define them as a static attribute in your component class definition, e.g.:
 
     static defaultProps = { ... };
+
+> ⚠ `options` in `defaultProps` will be overridden by the `options` static variable
 
 <a id="best-practices"></a>
 

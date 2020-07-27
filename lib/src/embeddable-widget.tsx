@@ -176,13 +176,14 @@ export default class EmbeddableWidget {
   }
 
   private static overrideOptions(newOptions: Options): Options {
-    const defaultOptions: Partial<Options> = this.Widget.defaultProps
+    const defaultOptionsFromProps: Partial<Options> = this.Widget.defaultProps
       ? this.Widget.defaultProps.options
-      : this.Widget.options || {};
+      : {};
 
     const options: Options = {
       ...INITIAL_OPTIONS,
-      ...defaultOptions,
+      ...defaultOptionsFromProps,
+      ...this.Widget.options,
       ...EmbeddableWidget.options,
       ...newOptions,
     };
