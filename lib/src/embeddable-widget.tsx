@@ -315,7 +315,8 @@ export default class EmbeddableWidget {
         const widgetDeps: string[] = EmbeddableWidget.Widget
           ? EmbeddableWidget.Widget.dependencies || []
           : [];
-        deps.concat(widgetDeps).filter((d) => !!d);
+
+        deps = deps.concat(widgetDeps).filter((d) => !!d);
 
         if (deps.length > 0) {
           Tooltip = createTooltip({
