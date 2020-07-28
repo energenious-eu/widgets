@@ -206,6 +206,101 @@ export default class EmbeddableWidget {
     }
   }
 
+  static modifyDOMElement({
+    uid,
+    querySelector,
+    modify,
+  }: {
+    uid: string;
+    querySelector: string;
+    modify: (element: Element) => void;
+  }): void {
+    const element: HTMLElement | undefined = EmbeddableWidget.getElement(uid);
+
+    if (!element) {
+      console.error(`Could not inject style to element with uid ${uid}.`);
+      return;
+    }
+
+    // modify root's attribute
+    if (!querySelector) {
+      modify(element);
+      return;
+    }
+
+    const childNode: HTMLElement | null = element.querySelector(querySelector);
+
+    if (!childNode) {
+      console.error(
+        `Could not inject style to child queried by ${querySelector} of element with uid ${uid}.`
+      );
+      return;
+    }
+
+    modify(childNode);
+    return;
+  }
+
+  static injectInlineStyle({
+    uid,
+    querySelector,
+    style,
+  }: {
+    uid: string;
+    querySelector: string;
+    style: string;
+  }): void {
+    function overrideStyle(element: Element): void {
+      element.setAttribute('style', style);
+    }
+
+    return this.modifyDOMElement({
+      uid,
+      querySelector,
+      modify: overrideStyle,
+    });
+  }
+
+  static injectCSSClass({
+    uid,
+    querySelector,
+    className,
+  }: {
+    uid: string;
+    querySelector: string;
+    className: string;
+  }) {
+    function appendClass(element: Element): void {
+      element.classList.add(className);
+    }
+
+    return this.modifyDOMElement({
+      uid,
+      querySelector,
+      modify: appendClass,
+    });
+  }
+
+  static removeCSSClass({
+    uid,
+    querySelector,
+    className,
+  }: {
+    uid: string;
+    querySelector: string;
+    className: string;
+  }) {
+    function removeClass(element: Element): void {
+      element.classList.remove(className);
+    }
+
+    return this.modifyDOMElement({
+      uid,
+      querySelector,
+      modify: removeClass,
+    });
+  }
+
   static checkElementMounted({ el, mount = true }: { el: HTMLElement; mount?: boolean }) {
     const uidAttribute: string | null = el.getAttribute('uid');
     const uid = uidAttribute ? uidAttribute : null;
