@@ -417,7 +417,7 @@ export default class EmbeddableWidget {
         if (deps.length > 0) {
           Tooltip = createTooltip({
             dependencies: deps,
-            packageJson: EmbeddableWidget.packageJson || EmbeddableWidget.Widget.packageJson,
+            packageJson: EmbeddableWidget.Widget.packageJson || EmbeddableWidget.packageJson,
           });
         }
       }
