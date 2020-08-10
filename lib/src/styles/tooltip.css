@@ -43,7 +43,7 @@
   font-family: sans-serif;
   font-size: 0.8rem;
 
-  z-index: 1000;
+  z-index: 10000;
 }
 
 .widget-base-tooltip > h3,
