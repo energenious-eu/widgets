@@ -414,12 +414,10 @@ export default class EmbeddableWidget {
 
         deps = deps.concat(widgetDeps).filter((d) => !!d);
 
-        if (deps.length > 0) {
-          Tooltip = createTooltip({
-            dependencies: deps,
-            packageJson: EmbeddableWidget.Widget.packageJson || EmbeddableWidget.packageJson,
-          });
-        }
+        Tooltip = createTooltip({
+          dependencies: deps,
+          packageJson: EmbeddableWidget.Widget.packageJson || EmbeddableWidget.packageJson,
+        });
       }
 
       EmbeddableWidget.Engine.render(component, el);
