@@ -5,8 +5,19 @@ export const createFooter = (): HTMLElement => {
   footer.setAttribute('style', 'z-index: 10000;');
   INNER.setAttribute(
     'style',
-    `position: absolute; background: white; bottom: 0; right: 0;
-        padding: 0.25rem; border: 1px solid #E6E6E6; display: inline; font-size: 0.6rem`
+    `
+      position: absolute;
+      background: white;
+      font-family: sans-serif;
+      bottom: 0;
+      right: 0;
+      padding: 0.25rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-bottom: 0;
+      border-right: 0;
+      border-top-left-radius: 2px;
+      font-size: 0.6rem;
+    `
   );
   INNER.innerHTML = `
   Powered by
