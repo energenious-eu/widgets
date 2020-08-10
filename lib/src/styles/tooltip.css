@@ -47,7 +47,7 @@
 }
 
 .widget-base-tooltip > h3,
-.widget-base-tooltip > h5 {
+.widget-base-tooltip > .widget-base-tooltip__dependencies > h5 {
   margin: 0.5em 0;
 }
 
@@ -63,12 +63,11 @@
   text-align: right;
 }
 
-.widget-base-tooltip > .widget-base-tooltip__versions {
+.widget-base-tooltip > .widget-base-tooltip__dependencies > .widget-base-tooltip__versions {
   padding-left: 7%;
   margin: 0;
 }
 
-.widget-base-tooltip > li {
+.widget-base-tooltip > .widget-base-tooltip__dependencies > .widget-base-tooltip__versions > li {
   font-size: 0.7rem;
-  padding-left: 12%;
 }
