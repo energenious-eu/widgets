@@ -7,44 +7,62 @@ interface CreateTooltip {
   packageJson: PackageJson;
 }
 
-// make a perfect circle (second answer): https://stackoverflow.com/questions/5445491/height-equal-to-dynamic-width-css-fluid-layout
-export const createTooltip = ({ dependencies, packageJson }: CreateTooltip): HTMLDivElement => {
+const tooltipHTML = `
+  <div class="widget-base-tooltip">
+    <h3>About</h3>
+    <h4 class="widget-base-tooltip__description"></h4>
+    <div class="widget-base-tooltip__dependencies">
+      <ul class="widget-base-tooltip__versions"></ul>
+    </div>
+    <div class="widget-base-tooltip__version">Version: </div>
+  </div>
+
+  <div class="icon">?</div>
+`;
+
+export const createTooltip = ({
+  dependencies,
+  packageJson,
+}: CreateTooltip): HTMLDivElement | undefined => {
+  const hiddenDOM = document.createElement('div');
+  hiddenDOM.setAttribute('style', 'display: none');
+  document.body.appendChild(hiddenDOM);
+
   const container: HTMLDivElement = document.createElement('div');
-  const dummy: HTMLDivElement = document.createElement('div');
-  const icon: HTMLDivElement = document.createElement('div');
+  container.setAttribute('id', 'widget-base-tooltip__container');
+  container.innerHTML = tooltipHTML;
 
-  dummy.setAttribute('id', 'dummy');
-  container.setAttribute('id', 'container');
-  icon.setAttribute('id', 'element');
+  hiddenDOM.appendChild(container);
 
-  const tooltip: HTMLSpanElement = document.createElement('span');
-  const about: HTMLHeadingElement = document.createElement('h3');
-  const description: HTMLDivElement = document.createElement('div');
-  const version: HTMLDivElement = document.createElement('div');
-  const versions: HTMLUListElement = document.createElement('ul');
+  const version: HTMLDivElement = container.getElementsByClassName(
+    'widget-base-tooltip__version'
+  )[0] as HTMLDivElement;
+  version.textContent += packageJson.version;
 
-  tooltip.setAttribute('class', 'widget-base-tooltip');
-  container.setAttribute('class', 'widget-base-tooltip-base');
-  icon.innerText = '?';
-  about.innerText = 'About';
-  version.innerText = 'Version: ' + packageJson.version;
-  description.innerText = packageJson.description;
-  versions.innerText = 'Packages';
+  const description: HTMLDivElement = container.getElementsByClassName(
+    'widget-base-tooltip__description'
+  )[0] as HTMLDivElement;
+  description.textContent = packageJson.description;
 
-  container.appendChild(tooltip);
-  container.appendChild(dummy);
-  container.appendChild(icon);
-  tooltip.appendChild(about);
-  tooltip.appendChild(description);
-  tooltip.appendChild(version);
-  tooltip.appendChild(versions);
+  const versions: HTMLUListElement = container.getElementsByClassName(
+    'widget-base-tooltip__versions'
+  )[0] as HTMLUListElement;
 
-  for (let d in dependencies) {
-    const li = document.createElement('li');
-    li.innerText =
-      dependencies[d] + ' : ' + semver.coerce(packageJson.dependencies[dependencies[d]]);
-    versions.appendChild(li);
+  if (dependencies.length > 0) {
+    const dependenciesTitle = document.createElement('h5');
+    dependenciesTitle.textContent = 'Dependencies: ';
+    versions.parentNode?.insertBefore(dependenciesTitle, versions);
+
+    for (let d in dependencies) {
+      const li = document.createElement('li');
+
+      li.innerText =
+        dependencies[d] + ': ' + semver.coerce(packageJson.dependencies[dependencies[d]]);
+      versions.appendChild(li);
+    }
   }
-  // container.setAttribute("class",EmbeddableWidget.options.className)
+
+  hiddenDOM.parentElement?.removeChild(hiddenDOM);
+
   return container;
 };

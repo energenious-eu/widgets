@@ -176,13 +176,14 @@ export default class EmbeddableWidget {
   }
 
   private static overrideOptions(newOptions: Options): Options {
-    const defaultOptions: Partial<Options> = this.Widget.defaultProps
+    const defaultOptionsFromProps: Partial<Options> = this.Widget.defaultProps
       ? this.Widget.defaultProps.options
-      : this.Widget.options || {};
+      : {};
 
     const options: Options = {
       ...INITIAL_OPTIONS,
-      ...defaultOptions,
+      ...defaultOptionsFromProps,
+      ...this.Widget.options,
       ...EmbeddableWidget.options,
       ...newOptions,
     };
@@ -193,6 +194,7 @@ export default class EmbeddableWidget {
       if (options.setCookie) document.cookie = cookie;
       delete options.token;
     }
+
     return options;
   }
 
@@ -202,6 +204,101 @@ export default class EmbeddableWidget {
     if (EmbeddableWidget.isMounted(uid)) {
       return EmbeddableWidget.remount({ uid });
     }
+  }
+
+  static modifyDOMElement({
+    uid,
+    querySelector,
+    modify,
+  }: {
+    uid: string;
+    querySelector: string;
+    modify: (element: Element) => void;
+  }): void {
+    const element: HTMLElement | undefined = EmbeddableWidget.getElement(uid);
+
+    if (!element) {
+      console.error(`Could not inject style to element with uid ${uid}.`);
+      return;
+    }
+
+    // modify root's attribute
+    if (!querySelector) {
+      modify(element);
+      return;
+    }
+
+    const childNode: HTMLElement | null = element.querySelector(querySelector);
+
+    if (!childNode) {
+      console.error(
+        `Could not inject style to child queried by ${querySelector} of element with uid ${uid}.`
+      );
+      return;
+    }
+
+    modify(childNode);
+    return;
+  }
+
+  static injectInlineStyle({
+    uid,
+    querySelector,
+    style,
+  }: {
+    uid: string;
+    querySelector: string;
+    style: string;
+  }): void {
+    function overrideStyle(element: Element): void {
+      element.setAttribute('style', style);
+    }
+
+    return this.modifyDOMElement({
+      uid,
+      querySelector,
+      modify: overrideStyle,
+    });
+  }
+
+  static injectCSSClass({
+    uid,
+    querySelector,
+    className,
+  }: {
+    uid: string;
+    querySelector: string;
+    className: string;
+  }) {
+    function appendClass(element: Element): void {
+      element.classList.add(className);
+    }
+
+    return this.modifyDOMElement({
+      uid,
+      querySelector,
+      modify: appendClass,
+    });
+  }
+
+  static removeCSSClass({
+    uid,
+    querySelector,
+    className,
+  }: {
+    uid: string;
+    querySelector: string;
+    className: string;
+  }) {
+    function removeClass(element: Element): void {
+      element.classList.remove(className);
+    }
+
+    return this.modifyDOMElement({
+      uid,
+      querySelector,
+      modify: removeClass,
+    });
   }
 
   static checkElementMounted({ el, mount = true }: { el: HTMLElement; mount?: boolean }) {
@@ -314,22 +411,21 @@ export default class EmbeddableWidget {
         const widgetDeps: string[] = EmbeddableWidget.Widget
           ? EmbeddableWidget.Widget.dependencies || []
           : [];
-        deps.concat(widgetDeps).filter((d) => !!d);
 
-        if (deps.length > 0) {
-          Tooltip = createTooltip({
-            dependencies: deps,
-            packageJson: EmbeddableWidget.packageJson || EmbeddableWidget.Widget.packageJson,
-          });
-        }
+        deps = deps.concat(widgetDeps).filter((d) => !!d);
+
+        Tooltip = createTooltip({
+          dependencies: deps,
+          packageJson: EmbeddableWidget.Widget.packageJson || EmbeddableWidget.packageJson,
+        });
       }
+
+      EmbeddableWidget.Engine.render(component, el);
 
       if (Footer) el.appendChild(Footer);
       if (Tooltip) el.appendChild(Tooltip);
       EmbeddableWidget.addElement(el, elementUid);
-
       EmbeddableWidget.resetState(elementUid, state, props);
-      EmbeddableWidget.Engine.render(component, el);
     }
 
     function resolve(): void {
