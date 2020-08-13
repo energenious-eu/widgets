@@ -17,6 +17,15 @@
 }
 
 #widget-base-tooltip__container > .icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   color: rgba(0, 0, 0, 0.6);
   font-weight: bold;
   font-family: sans-serif;
@@ -63,11 +72,16 @@
   text-align: right;
 }
 
-.widget-base-tooltip > .widget-base-tooltip__dependencies > .widget-base-tooltip__versions {
+.widget-base-tooltip
+  > .widget-base-tooltip__dependencies
+  > .widget-base-tooltip__versions {
   padding-left: 7%;
   margin: 0;
 }
 
-.widget-base-tooltip > .widget-base-tooltip__dependencies > .widget-base-tooltip__versions > li {
+.widget-base-tooltip
+  > .widget-base-tooltip__dependencies
+  > .widget-base-tooltip__versions
+  > li {
   font-size: 0.7rem;
 }
