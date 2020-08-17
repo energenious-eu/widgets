@@ -14,6 +14,7 @@ import {
   FIX_TYPE,
   Script,
   Component,
+  ExternalCSSClass,
 } from './types';
 import { createFooter } from './util/create-footer';
 import { createTooltip } from './util/create-tooltip';
@@ -30,7 +31,7 @@ const INITIAL_OPTIONS: Options = {
   setCookieDomain: null,
   loadScriptAJAX: false,
   tokenName: 'token',
-  className: parseClassName(),
+  className: parseClassName(process.env.WIDGET_TITLE),
 };
 
 export default class EmbeddableWidget {
@@ -206,12 +207,12 @@ export default class EmbeddableWidget {
     }
   }
 
-  static modifyDOMElement({
+  static modifyWidget({
     uid,
     querySelector,
     modify,
   }: {
-    uid: string;
+    uid?: string;
     querySelector: string;
     modify: (element: Element) => void;
   }): void {
@@ -228,17 +229,53 @@ export default class EmbeddableWidget {
       return;
     }
 
-    const childNode: HTMLElement | null = element.querySelector(querySelector);
+    const childNodes: HTMLElement[] = Array.from(element.querySelectorAll(querySelector));
 
-    if (!childNode) {
-      console.error(
-        `Could not inject style to child queried by ${querySelector} of element with uid ${uid}.`
-      );
-      return;
-    }
+    childNodes.forEach((childNode) => {
+      if (!childNode) {
+        console.error(
+          `Could not inject style to child queried by ${querySelector} of element with uid ${uid}.`
+        );
+        return;
+      }
 
-    modify(childNode);
+      modify(childNode);
+    });
     return;
+  }
+
+  static modifyAllWidgets({
+    querySelector,
+    modify,
+  }: {
+    querySelector: string;
+    modify: (element: Element) => void;
+  }): void {
+    const childNodes: HTMLElement[] = Array.from(document.querySelectorAll(querySelector));
+
+    childNodes.forEach((childNode) => {
+      if (!childNode) {
+        console.error('Could not find ', childNode);
+        return;
+      }
+
+      modify(childNode);
+    });
+    return;
+  }
+
+  static modifyDOMElement({
+    uid,
+    querySelector,
+    modify,
+  }: {
+    uid?: string;
+    querySelector: string;
+    modify: (element: Element) => void;
+  }): void {
+    return uid
+      ? this.modifyWidget({ uid, querySelector, modify })
+      : this.modifyAllWidgets({ querySelector, modify });
   }
 
   static injectInlineStyle({
@@ -266,7 +303,7 @@ export default class EmbeddableWidget {
     querySelector,
     className,
   }: {
-    uid: string;
+    uid?: string;
     querySelector: string;
     className: string;
   }) {
@@ -286,7 +323,7 @@ export default class EmbeddableWidget {
     querySelector,
     className,
   }: {
-    uid: string;
+    uid?: string;
     querySelector: string;
     className: string;
   }) {
@@ -298,6 +335,20 @@ export default class EmbeddableWidget {
       uid,
       querySelector,
       modify: removeClass,
+    });
+  }
+
+  static applyExternalCSSClasses({ uid, classes }: { uid?: UID; classes: ExternalCSSClass[] }) {
+    classes.forEach((externalClass: ExternalCSSClass) => {
+      const querySelector = `[data-role="${externalClass.role}"]`;
+      this.injectCSSClass({ uid, className: externalClass.className, querySelector });
+    });
+  }
+
+  static removeExternalCSSClasses({ uid, classes }: { uid?: UID; classes: ExternalCSSClass[] }) {
+    classes.forEach((externalClass: ExternalCSSClass) => {
+      const querySelector = `[data-role="${externalClass.role}"]`;
+      this.removeCSSClass({ uid, className: externalClass.className, querySelector });
     });
   }
 
