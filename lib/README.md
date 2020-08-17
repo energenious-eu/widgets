@@ -9,12 +9,15 @@
       - [Index file](#index-file)
     - [React](#react)
     - [TypeScript](#typescript)
-    - [Refractoring the code base](#refractoring-the-code-base)
+    - [Refactoring the code base](#refactoring-code-base)
       - [ReactJS](#reactjs)
   - [Configuration](#configuration)
     - [Object attributes](#object-attributes)
     - [Environmental variables](#environmental-variables)
     - [ReactJS](#reactjs-1)
+  - [Usage](#usage)
+    - [Widget API](#widget-api)
+    - [Examples](#widget-api-examples)
   - [Best practices](#best-practices)
     - [Variables](#variables)
     - [Prop types](#prop-types)
@@ -210,9 +213,9 @@ Then create a <code>tsconfig.json</code> file at the root of your project and pa
 
         npm start
 
-<a id="refractoring-code-base"></a>
+<a id="refactoring-code-base"></a>
 
-### Refractoring the code base
+### Refactoring the code base
 
 <a id="reactjs"></a>
 
@@ -296,7 +299,6 @@ You can define the following static in the main Widget class:
 The following environmental variables are evaluated at runtime, overwrite them to change the desired behaviour:
 
 - <code>WIDGET_TITLE</code>: The widget title displayed in the main page (default to project's title in package.json file)
-- <code>WIDGET_MAIN_CSS_CLASS</code>: Add a class name to every element of the widget to increase specificity.
 - <code>WIDGET_HIDE_EXPLANATION</code>: Should the widget title and a link to the latest widget's version script be shown on the page?
 - <code>WIDGET_ASSET_SERVER</code>: Path to the server used for static asset distribution (public path). Defaults to "/".
 - <code>WIDGET_USE_CLEANSLATE</code>: Should a CSS reset be applied?
@@ -312,6 +314,53 @@ If you use any default props in the component, define them as a static attribute
     static defaultProps = { ... };
 
 > ⚠ `options` in `defaultProps` will be overridden by the `options` static variable
+
+## Usage
+
+The static SDK methods can be accessed in the browser console through the `window` global object. The name of the property will be the title of your widget (`WIDGET_TITLE` env variable) or, if not defined, the `name` of your package specified in `package.json`.
+
+### Widget API
+
+Example taken from `./templates/TypeScript React`
+Here you can see some of the methods available through the API. Of course all of those can be used in code as well.
+
+### Examples
+
+#### Applying dark/light theme based on the hosting platform's preferences
+
+To accomplish our goal, we need to have the ability to add some classes to our elements at runtime. Let us first outline the usage flow:
+
+1. User adds a widget to a dashboard and chooses a dark theme.
+2. The hosting platform knows that it should apply the dark theme to widget(s), but it does not know which elements can be styled in a particular widget.
+3. The hosting platform invokes
+
+```js
+EmbeddableWidget.applyExternalCSSClasses({
+  uid: WIDGET_UID,
+  classes: [
+    { role: 'background', className: 'background--dark' },
+    { role: 'foreground', className: 'foreground--dark' },
+  ],
+});
+```
+
+4. The SDK applies styles to all elements under our widget (resolved by uid) which are found by
+
+```ts
+classes.forEach((externalClass: ExternalCSSClass) => {
+  const querySelector = `[data-role="${externalClass.role}"]`;
+  this.injectCSSClass({ uid, className: externalClass.className, querySelector });
+});
+```
+
+Note that, for the SDK to be able to style your widget, you have to define the appropriate `data-role` attributes on elements to be styled. These have to be consistent with the hosting platform's code too, otherwise no styles will be applied.
+Example:
+
+```jsx
+const MyElement = () => <h2 data-role="heading">My widget</div>;
+```
+
+5. ✅ Success! User sees the dark-themed widget.
 
 <a id="best-practices"></a>
 

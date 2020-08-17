@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import EmbeddableWidget from '../src/index';
+import render from '../util/render';
+import cleanup from '../util/cleanup';
+import muteConsole from '../util/mute-console';
 
 const UID = 123;
 
@@ -8,41 +9,14 @@ const UID = 123;
 console.log = jest.fn();
 console.warn = jest.fn();
 
-const render = (Widget) => {
-  EmbeddableWidget.Widget = Widget;
-
-  const root = document.createElement('div');
-  root.setAttribute('id', 'root');
-
-  document.body.appendChild(root);
-
-  EmbeddableWidget.Engine = {
-    createElement: (props) => {
-      return <Widget {...props} />;
-    },
-    render: (component, el) => ReactDOM.render(component, el),
-    unmountComponentAtNode: (node) => ReactDOM.unmountComponentAtNode(node),
-  };
-
-  EmbeddableWidget.mount({ parentElement: '#root', uid: UID });
-
-  return root;
-};
-
 describe('React rendering', () => {
-  EmbeddableWidget.React = React;
-
-  afterEach(() => {
-    EmbeddableWidget.unmount({ uid: UID });
-
-    const root = document.getElementById('root');
-    document.body.removeChild(root);
-  });
+  beforeAll(muteConsole);
+  afterEach(cleanup(UID));
 
   it('renders a simple widget correctly', () => {
     const Widget = () => <div id="widget">test success</div>;
 
-    render(Widget);
+    render(Widget, UID);
 
     const widget = document.getElementById('widget');
     expect(widget).toBeTruthy();
@@ -56,7 +30,7 @@ describe('React rendering', () => {
       }
     }
 
-    render(Widget);
+    render(Widget, UID);
 
     const widget = document.getElementById('widget');
     expect(widget).toBeTruthy();
@@ -76,7 +50,7 @@ describe('React rendering', () => {
       }
     }
 
-    render(Widget);
+    render(Widget, UID);
 
     const widget = document.getElementById('widget');
 
