@@ -75,7 +75,7 @@ export default class EmbeddableWidget {
   static packageJson: PackageJson = require('../package.json');
 
   private static setClassName({ props }: { props: Props }): void {
-    const { className } = props;
+    const { className } = props.options;
 
     EmbeddableWidget.options.className = parseClassName(className);
   }
@@ -182,9 +182,9 @@ export default class EmbeddableWidget {
 
     const options: Options = {
       ...INITIAL_OPTIONS,
+      ...EmbeddableWidget.options,
       ...defaultOptionsFromProps,
       ...this.Widget.options,
-      ...EmbeddableWidget.options,
       ...newOptions,
     };
 

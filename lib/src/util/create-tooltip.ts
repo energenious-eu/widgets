@@ -29,7 +29,7 @@ export const createTooltip = ({
   document.body.appendChild(hiddenDOM);
 
   const container: HTMLDivElement = document.createElement('div');
-  container.setAttribute('id', 'widget-base-tooltip__container');
+  container.classList.add('widget-base-tooltip__container');
   container.innerHTML = tooltipHTML;
 
   hiddenDOM.appendChild(container);

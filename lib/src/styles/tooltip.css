@@ -1,4 +1,4 @@
-#widget-base-tooltip__container {
+.widget-base-tooltip__container {
   position: absolute;
   bottom: 4px;
   left: 4px;
@@ -12,11 +12,11 @@
   text-align: center;
 }
 
-#widget-base-tooltip__container:hover .widget-base-tooltip {
+.widget-base-tooltip__container:hover .widget-base-tooltip {
   display: block;
 }
 
-#widget-base-tooltip__container > .icon {
+.widget-base-tooltip__container > .icon {
   position: absolute;
   top: 0;
   left: 0;
@@ -72,16 +72,11 @@
   text-align: right;
 }
 
-.widget-base-tooltip
-  > .widget-base-tooltip__dependencies
-  > .widget-base-tooltip__versions {
+.widget-base-tooltip > .widget-base-tooltip__dependencies > .widget-base-tooltip__versions {
   padding-left: 7%;
   margin: 0;
 }
 
-.widget-base-tooltip
-  > .widget-base-tooltip__dependencies
-  > .widget-base-tooltip__versions
-  > li {
+.widget-base-tooltip > .widget-base-tooltip__dependencies > .widget-base-tooltip__versions > li {
   font-size: 0.7rem;
 }
