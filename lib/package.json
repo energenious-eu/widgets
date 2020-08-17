@@ -1,7 +1,7 @@
 {
   "name": "@tecnojest/widget-base",
   "author": "Tecnojest srl https://www.invidea.it",
-  "version": "1.4.17",
+  "version": "1.4.23",
   "publishConfig": {
     "registry": "https://npm.invidea.it"
   },
@@ -12,6 +12,7 @@
   "scripts": {
     "test": "jest --watch",
     "test-import": "babel-node test/test_import.js",
+    "prepublish": "npm run-script build-windows",
     "deploy": "npm run-script prepublish && npm version patch && npm publish --registry=https://npm.invidea.it",
     "prepare-deploy": "touch .npmignore && echo -e 'src/' << .npmignore",
     "build-windows": "set NODE_ENV=production tsc && webpack --config webpack.config.build.js",
