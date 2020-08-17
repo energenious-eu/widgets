@@ -1,4 +1,4 @@
-#widget-base-tooltip__container {
+.widget-base-tooltip__container {
   position: absolute;
   bottom: 4px;
   left: 4px;
@@ -12,11 +12,11 @@
   text-align: center;
 }
 
-#widget-base-tooltip__container:hover .widget-base-tooltip {
+.widget-base-tooltip__container:hover .widget-base-tooltip {
   display: block;
 }
 
-#widget-base-tooltip__container > .icon {
+.widget-base-tooltip__container > .icon {
   color: rgba(0, 0, 0, 0.6);
   font-weight: bold;
   font-family: sans-serif;
