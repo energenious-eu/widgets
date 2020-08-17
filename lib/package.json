@@ -10,7 +10,8 @@
   "types": "lib/types/index.d.ts",
   "module": "src/index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "test-import": "babel-node test/test_import.js",
     "prepublish": "npm run-script build-windows",
     "deploy": "npm run-script prepublish && npm version patch && npm publish --registry=https://npm.invidea.it",
