@@ -9,8 +9,8 @@ interface CreateTooltip {
 
 const tooltipHTML = `
   <div class="widget-base-tooltip">
-    <h3>About</h3>
-    <h4 class="widget-base-tooltip__description"></h4>
+    <h5>About</h5>
+    <h6 class="widget-base-tooltip__description"></h6>
     <div class="widget-base-tooltip__dependencies">
       <ul class="widget-base-tooltip__versions"></ul>
     </div>
@@ -29,7 +29,7 @@ export const createTooltip = ({
   document.body.appendChild(hiddenDOM);
 
   const container: HTMLDivElement = document.createElement('div');
-  container.setAttribute('id', 'widget-base-tooltip__container');
+  container.classList.add('widget-base-tooltip__container');
   container.innerHTML = tooltipHTML;
 
   hiddenDOM.appendChild(container);
@@ -49,7 +49,7 @@ export const createTooltip = ({
   )[0] as HTMLUListElement;
 
   if (dependencies.length > 0) {
-    const dependenciesTitle = document.createElement('h5');
+    const dependenciesTitle = document.createElement('span');
     dependenciesTitle.textContent = 'Dependencies: ';
     versions.parentNode?.insertBefore(dependenciesTitle, versions);
 

@@ -104,3 +104,9 @@ export interface Widget extends Component {
 export interface Elements {
   [uid: number]: HTMLElement;
 }
+
+// exemplary roles are: 'background', 'foreground'
+export interface ExternalCSSClass {
+  role: string;
+  className: string;
+}

@@ -13,6 +13,7 @@ before_script:
 
 stages:
   - build
+  - test
   - deploy
 
 build:
@@ -23,8 +24,12 @@ build:
   artifacts:
     paths:
       - lib
-  only:
-    - development
+
+test:
+  stage: test
+  script:
+    - npm install
+    - npm run test
 
 deploy:
   stage: deploy
@@ -35,3 +40,5 @@ deploy:
   artifacts:
     paths:
       - public
+  only:
+    - master
