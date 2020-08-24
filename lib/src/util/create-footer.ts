@@ -22,7 +22,7 @@ export const createFooter = (): HTMLElement => {
   INNER.innerHTML = `
   Powered by
   <a
-    style="color: #1a4270; text-decoration: none; font-weight: bold;"
+    style="color: #1a4270; text-decoration: none; font-weight: bold; font-size: 0.7rem;"
     href="https://energenious.eu/">
     energenious
   </a>`;

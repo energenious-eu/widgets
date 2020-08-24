@@ -1,7 +1,7 @@
 {
   "name": "@tecnojest/widget-base",
   "author": "Tecnojest srl https://www.invidea.it",
-  "version": "1.4.18",
+  "version": "1.4.27",
   "publishConfig": {
     "registry": "https://npm.invidea.it"
   },
@@ -11,7 +11,9 @@
   "module": "src/index.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "test-import": "babel-node test/test_import.js",
+    "prepublish": "npm run-script build-windows",
     "deploy": "npm run-script prepublish && npm version patch && npm publish --registry=https://npm.invidea.it",
     "prepare-deploy": "touch .npmignore && echo -e 'src/' << .npmignore",
     "build-windows": "set NODE_ENV=production tsc && webpack --config webpack.config.build.js",
@@ -21,28 +23,6 @@
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook -c .storybook -o ../public",
     "storybook:serve": "npx http-server ../public"
-  },
-  "jest": {
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.js?(x)"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test-helpers/"
-    ],
-    "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.(css|scss)$": "<rootDir>/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/jest/fileTransform.js"
-    },
-    "setupFiles": [
-      "<rootDir>/jest/setup.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
   },
   "devDependencies": {
     "@babel/core": "7.7.4",
@@ -55,19 +35,23 @@
     "@babel/plugin-proposal-throw-expressions": "7.7.4",
     "@babel/plugin-syntax-dynamic-import": "7.7.4",
     "@babel/plugin-syntax-import-meta": "7.7.4",
-    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-knobs": "^5.3.19",
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.19",
+    "@types/jest": "^26.0.9",
     "@types/node": "^14.0.14",
+    "@types/react-test-renderer": "^16.9.3",
     "@types/webpack": "^4.41.19",
     "@types/webpack-dev-server": "^3.11.0",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
     "babel-eslint": "10.1.0",
+    "babel-jest": "^26.3.0",
     "babel-loader": "8.1.0",
     "babel-preset-airbnb": "4.4.0",
     "clean-webpack-plugin": "^3.0.0",
@@ -87,11 +71,13 @@
     "eslint-plugin-react-hooks": "1.7.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^26.3.0",
     "mini-css-extract-plugin": "0.8.0",
     "node-sass": "4.13.0",
     "postcss-increase-specificity": "0.6.0",
     "postcss-loader": "3.0.0",
     "raw-loader": "^4.0.1",
+    "react-test-renderer": "^16.13.1",
     "sass-loader": "8.0.0",
     "source-map-loader": "^1.0.1",
     "style-loader": "1.0.1",

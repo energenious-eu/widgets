@@ -1,4 +1,4 @@
-#widget-base-tooltip__container {
+.widget-base-tooltip__container {
   position: absolute;
   bottom: 4px;
   left: 4px;
@@ -12,11 +12,20 @@
   text-align: center;
 }
 
-#widget-base-tooltip__container:hover .widget-base-tooltip {
-  display: block;
+.widget-base-tooltip__container:hover .widget-base-tooltip {
+  display: block !important;
 }
 
-#widget-base-tooltip__container > .icon {
+.widget-base-tooltip__container > .icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   color: rgba(0, 0, 0, 0.6);
   font-weight: bold;
   font-family: sans-serif;
@@ -46,15 +55,22 @@
   z-index: 10000;
 }
 
-.widget-base-tooltip > h3,
-.widget-base-tooltip > .widget-base-tooltip__dependencies > h5 {
+.widget-base-tooltip h5 {
   margin: 0.5em 0;
+  font-weight: bold;
+}
+.widget-base-tooltip > .widget-base-tooltip__dependencies > span {
+  display: inline-block;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-bottom: 0.3em;
 }
 
 .widget-base-tooltip > .widget-base-tooltip__description {
   font-weight: normal;
-  margin: 0.3em 0 1em;
-  color: rgba(0, 0, 0, 0.7);
+  margin: 0.2em 0;
+  font-size: 0.9em;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .widget-base-tooltip > .widget-base-tooltip__version {
@@ -63,11 +79,17 @@
   text-align: right;
 }
 
-.widget-base-tooltip > .widget-base-tooltip__dependencies > .widget-base-tooltip__versions {
-  padding-left: 7%;
+.widget-base-tooltip
+  > .widget-base-tooltip__dependencies
+  > .widget-base-tooltip__versions {
+  padding-left: 10%;
   margin: 0;
 }
 
-.widget-base-tooltip > .widget-base-tooltip__dependencies > .widget-base-tooltip__versions > li {
+.widget-base-tooltip
+  > .widget-base-tooltip__dependencies
+  > .widget-base-tooltip__versions
+  > li {
   font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.7);
 }
