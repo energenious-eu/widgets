@@ -31,7 +31,7 @@ const INITIAL_OPTIONS: Options = {
   setCookieDomain: null,
   loadScriptAJAX: false,
   tokenName: 'token',
-  className: parseClassName(process.env.WIDGET_TITLE),
+  className: parseClassName(process.env.WIDGET_MAIN_CSS_CLASS),
 };
 
 export default class EmbeddableWidget {
