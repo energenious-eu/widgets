@@ -12,10 +12,10 @@ export const prepareScripts = (
     const script: Script = scripts[key];
     if (skip.indexOf(script.name) !== -1) continue;
     if (script.dependsOn) {
-      const index = scripts.findIndex((s) => s.name === script.dependsOn);
+      const index = scripts.findIndex((s) => script.dependsOn.includes(s.name));
       const scriptDep: Script = scripts[index];
 
-      if (scriptsToLoad.filter((s: Script) => s.name === script.dependsOn).length == 0) {
+      if (scriptsToLoad.filter((s: Script) => script.dependsOn.includes(s.name)).length == 0) {
         scriptsToLoad.push(scriptDep);
         skip.push(scriptDep.name);
       }
@@ -24,7 +24,8 @@ export const prepareScripts = (
   }
 
   const promises: FIX_TYPE[] = [];
-  scriptsToLoad.forEach((script) => promises.push(
+  scriptsToLoad.forEach((script) =>
+    promises.push(
       loadScript({
         script,
         options: widgetOptions,

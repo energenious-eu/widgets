@@ -72,17 +72,18 @@ export interface PackageJson {
 }
 
 export interface Script {
-  authenticate: boolean | undefined;
-  src: string;
-  defer: boolean;
   name: string;
+  src: string;
+  dependsOn: string;
+  aliases: string[];
+
   minVersion: string;
   maxVersion: string;
 
+  defer: boolean;
   isLoading: boolean;
   loaded: boolean;
-
-  dependsOn: string;
+  authenticate: boolean | undefined;
 }
 
 export interface Style {

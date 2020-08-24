@@ -2,6 +2,9 @@ import { Style, Script, Options } from '../types';
 
 const semver = require('semver');
 
+const getScriptElement = (name: string): HTMLScriptElement | null =>
+  document.querySelector(`script[data-package="${name}"`);
+
 export const loadStyles = (styles: Style[] = []): void => {
   styles.map(({ src, name }) => {
     if (!document.getElementById(name) || !name) {
@@ -24,51 +27,37 @@ export const loadStyles = (styles: Style[] = []): void => {
 const scriptAlreadyLoaded = ({
   name,
   src,
+  aliases,
   minVersion,
   maxVersion,
   loaded,
 }: Script): boolean => {
-  if (loaded) return !!loaded;
-  let alreadyLoaded: boolean = !!document.querySelector('script#' + name);
-  name = name.toLowerCase();
+  if (loaded) return true;
 
-  const includesJquery: boolean = name.includes('jquery');
-  const isJquery: boolean =
-    src.includes('jquery.js') || src.includes('jquery.js') || name === 'jquery';
-  if (!alreadyLoaded) {
-    let namespace: any;
-    if (includesJquery) {
-      if (typeof window['$'] == 'function') namespace = window['$'];
-      else if (typeof window['jQuery'] == 'function') namespace = window['jQuery'];
-      else namespace = window['jQuery'] || window['$'] || window['JQuery'];
-      if (namespace && !isJquery) {
-        namespace = namespace[name.replace('jquery-', '')];
-      }
-      if (namespace && isJquery) namespace = { version: namespace.fn.jquery };
-    } else {
-      namespace = window[name];
+  const possibleScriptNames = aliases && aliases.length ? [name, ...aliases] : [name];
+
+  let alreadyLoaded: boolean = possibleScriptNames.some(
+    (possibleName) => !!getScriptElement(possibleName)
+  );
+
+  let namespace: any,
+    namespaceName: string = '';
+  possibleScriptNames.forEach((possibleName) => {
+    if (window[possibleName]) {
+      namespaceName = possibleName;
+      namespace = window[possibleName];
     }
+  });
 
-    alreadyLoaded = !!namespace;
-    if (alreadyLoaded) {
-      const version = namespace.version;
-      console.warn(
-        'Namespace version, ',
-        version,
-        'of',
-        name,
-        'already loadad'
-      );
-      if (minVersion && !semver.gt(version, semver.coerce(minVersion))) {
-        throw Error(
-          `Version ${version} of ${name} is lower than min version ${minVersion}`
-        );
-      }
-      if (maxVersion && !semver.lt(version, maxVersion)) {
-        throw Error(
-          `Version ${version} of ${name} is higher than min version ${maxVersion}`
-        );
-      }
+  alreadyLoaded = !!namespace;
+  if (alreadyLoaded) {
+    const version = namespace.version || (namespace.fn && namespace.fn.jquery);
+    console.warn('Namespace version,', version, 'of', name, 'already loaded under', namespaceName);
+    if (minVersion && !semver.gt(version, semver.coerce(minVersion))) {
+      throw Error(`Version ${version} of ${name} is lower than min version ${minVersion}`);
+    }
+    if (maxVersion && !semver.lt(version, maxVersion)) {
+      throw Error(`Version ${version} of ${name} is higher than min version ${maxVersion}`);
     }
   }
   return !!alreadyLoaded;
@@ -98,17 +87,9 @@ export const loadScript = ({
         if (script.authenticate && token) headers['Authorization'] = 'Bearer ' + token;
       }
 
-      const parent: Script =
-        scripts[scripts.findIndex((s) => s.name === script.dependsOn)];
+      const parent: Script = scripts[scripts.findIndex((s) => script.dependsOn.includes(s.name))];
       if (parent && !scriptAlreadyLoaded(parent)) {
-        //&& !parent.isLoading)
-        console.log(
-          'script',
-          name,
-          'going after',
-          parent,
-          scriptAlreadyLoaded(parent)
-        );
+        console.log('script', name, 'going after', parent, scriptAlreadyLoaded(parent));
         loadScript({ script: parent, options, scripts })
           .then(() => {
             loadScript({ script, options, scripts })
@@ -120,9 +101,7 @@ export const loadScript = ({
             reject(e);
           });
       } else {
-        scripts[
-          scripts.findIndex((s) => s.name === script.name)
-        ].isLoading = true;
+        scripts[scripts.findIndex((s) => s.name === script.name)].isLoading = true;
         fetch(src, {
           mode: 'cors',
           // credentials: 'include',
@@ -132,12 +111,8 @@ export const loadScript = ({
           .then((scrpt) => {
             eval.apply(null, [scrpt]);
             // Possible alternative to eval: new Function(scrpt).apply(null, [scrpt]);
-            scripts[
-              scripts.findIndex((s) => s.name === script.name)
-            ].loaded = true;
-            scripts[
-              scripts.findIndex((s) => s.name === script.name)
-            ].isLoading = false;
+            scripts[scripts.findIndex((s) => s.name === script.name)].loaded = true;
+            scripts[scripts.findIndex((s) => s.name === script.name)].isLoading = false;
             console.warn('here loading ', name);
             resolve();
             return;
@@ -150,18 +125,17 @@ export const loadScript = ({
       }
     } else {
       const scriptEl: HTMLScriptElement = document.createElement('script');
-      scriptEl.id = name;
+      scriptEl.dataset.package = name;
       scriptEl.src = src;
       scriptEl.addEventListener('load', () => {
+        console.log('loaded', name);
         resolve();
       });
       scriptEl.addEventListener('error', (e) => {
         reject(e);
       });
 
-      const parent: HTMLScriptElement | null = dependsOn
-        ? document.querySelector('script#' + dependsOn)
-        : null;
+      const parent: HTMLScriptElement | null = dependsOn ? getScriptElement(dependsOn) : null;
       if (parent) {
         parent.addEventListener('load', () => {
           if (scriptAlreadyLoaded(script)) {
