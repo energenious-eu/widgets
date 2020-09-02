@@ -63,6 +63,7 @@ export interface Engine {
   unmountComponentAtNode: (node: HTMLElement) => void;
 
   resetState?: (uid: UID, state: State) => void;
+  getState?: (uid: UID) => State;
 }
 
 export interface PackageJson {

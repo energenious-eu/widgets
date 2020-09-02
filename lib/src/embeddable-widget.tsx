@@ -85,6 +85,9 @@ export default class EmbeddableWidget {
   }
 
   static getState(uid: UID): State | void {
+    if (EmbeddableWidget.Engine.getState) {
+      return EmbeddableWidget.Engine.getState(uid);
+    }
     if (EmbeddableWidget.Widget.getState) {
       return EmbeddableWidget.Widget.getState(uid);
     }
