@@ -53,10 +53,10 @@ const scriptAlreadyLoaded = ({
   if (alreadyLoaded) {
     const version = namespace.version || (namespace.fn && namespace.fn.jquery);
     console.warn('Namespace version,', version, 'of', name, 'already loaded under', namespaceName);
-    if (minVersion && !semver.gt(version, semver.coerce(minVersion))) {
+    if (minVersion && semver.lt(version, semver.coerce(minVersion))) {
       throw Error(`Version ${version} of ${name} is lower than min version ${minVersion}`);
     }
-    if (maxVersion && !semver.lt(version, maxVersion)) {
+    if (maxVersion && semver.gt(version, maxVersion)) {
       throw Error(`Version ${version} of ${name} is higher than min version ${maxVersion}`);
     }
   }
