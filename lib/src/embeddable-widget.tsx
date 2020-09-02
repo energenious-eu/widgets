@@ -23,18 +23,17 @@ import EventManager from './events/event-manager';
 
 const DEFAULT_UID: UID = '-1';
 
-const INITIAL_OPTIONS: Options = {
-  appendFooter: true,
-  appendTooltip: true,
-  singleton: false,
-  setCookie: false,
-  setCookieDomain: null,
-  loadScriptAJAX: false,
-  tokenName: 'token',
-  className: parseClassName(process.env.WIDGET_MAIN_CSS_CLASS),
-};
-
 export default class EmbeddableWidget {
+  static INITIAL_OPTIONS: Options = {
+    appendFooter: true,
+    appendTooltip: true,
+    singleton: false,
+    setCookie: false,
+    setCookieDomain: null,
+    loadScriptAJAX: false,
+    tokenName: 'token',
+    className: parseClassName(process.env.WIDGET_MAIN_CSS_CLASS),
+  };
   /**
    * The engine configuration
    */
@@ -185,7 +184,7 @@ export default class EmbeddableWidget {
       : {};
 
     const options: Options = {
-      ...INITIAL_OPTIONS,
+      ...EmbeddableWidget.INITIAL_OPTIONS,
       ...EmbeddableWidget.options,
       ...defaultOptionsFromProps,
       ...this.Widget.options,
