@@ -1,7 +1,7 @@
 {
   "name": "@tecnojest/widget-base",
   "author": "Tecnojest srl https://www.invidea.it",
-  "version": "1.4.31",
+  "version": "1.4.32",
   "publishConfig": {
     "registry": "https://npm.invidea.it"
   },
@@ -88,7 +88,7 @@
     "uglify-loader": "^3.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.0.0",
-    "webpack": "4.42.0",
+    "webpack": "^4.42.0",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.10.3",
     "webpack-obfuscator": "0.18.5",
