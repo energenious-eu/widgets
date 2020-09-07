@@ -21,7 +21,7 @@
     "start": "webpack-dev-server",
     "test-update-snapshots": "jest --updateSnapshot",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook -c .storybook -o ../public",
+    "storybook:build": "build-storybook -c .storybook -o ../public/storybook",
     "storybook:serve": "npx http-server ../public"
   },
   "devDependencies": {

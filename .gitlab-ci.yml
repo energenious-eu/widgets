@@ -38,7 +38,7 @@ pages:
   script:
     - npm install
     - npm run build
-    - npm run storybook:build -o ../public/storybook # will resolve to ./public/storybook because we're in /lib
+    - npm run storybook:build
     - cd ../pages
     - npm install
     - ./node_modules/.bin/gatsby build --prefix-paths
