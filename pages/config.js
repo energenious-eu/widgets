@@ -44,7 +44,8 @@ const config = {
     title: "Energenious | Widgets",
     description: "Widgets project documentation.",
     ogImage: null,
-    docsLocation: "https://gitlab.com/energenious/widgets/pages/content",
+    docsLocation:
+      "https://gitlab.com/energenious/widgets/-/tree/master/pages/content",
     favicon: "https://energenious.eu/lay/favicon-32x32.png"
   },
   pwa: {
