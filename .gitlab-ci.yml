@@ -44,6 +44,9 @@ deploy:
     - cd ../pages
     - npm install
     - ./node_modules/.bin/gatsby build --prefix-paths
+    - cd ..
+    - rm -rf public
+    - mv pages/public .
   artifacts:
     paths:
       - public
