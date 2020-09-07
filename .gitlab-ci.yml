@@ -14,8 +14,8 @@ before_script:
   - cd lib/
 
 stages:
-  - build
-  - test
+  # - build
+  # - test
   - deploy
 
 build:
@@ -38,12 +38,12 @@ test:
 deploy:
   stage: deploy
   script:
-    - npm install
-    - npm run build
-    - npm run storybook:build
+    # - npm install
+    # - npm run build
+    # - npm run storybook:build
     - cd ../pages
     - npm install
     - ./node_modules/.bin/gatsby build --prefix-paths
   artifacts:
     paths:
-      - public
+      - ./pages/public
