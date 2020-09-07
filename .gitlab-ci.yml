@@ -16,7 +16,7 @@ before_script:
 stages:
   # - build
   # - test
-  - deploy
+  - pages
 
 # build:
 #   stage: build
@@ -35,8 +35,8 @@ stages:
 #     - npm run test
 #   only:
 #     - master
-deploy:
-  stage: deploy
+pages:
+  stage: pages
   script:
     # - npm install
     # - npm run build
