@@ -6,6 +6,8 @@
   "parser": "@typescript-eslint/parser",
   "extends": "airbnb",
   "rules": {
+    "no-confusing-arrow": "off",
+    "implicit-arrow-linebreak": "off",
     "import/no-webpack-loader-syntax": "off",
     "no-eval": "warn",
     "no-continue": "off",

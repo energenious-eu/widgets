@@ -63,6 +63,7 @@ export interface Engine {
   unmountComponentAtNode: (node: HTMLElement) => void;
 
   resetState?: (uid: UID, state: State) => void;
+  getState?: (uid: UID) => State;
 }
 
 export interface PackageJson {
@@ -72,17 +73,18 @@ export interface PackageJson {
 }
 
 export interface Script {
-  authenticate: boolean | undefined;
-  src: string;
-  defer: boolean;
   name: string;
+  src: string;
+  dependsOn: string;
+  aliases: string[];
+
   minVersion: string;
   maxVersion: string;
 
+  defer: boolean;
   isLoading: boolean;
   loaded: boolean;
-
-  dependsOn: string;
+  authenticate: boolean | undefined;
 }
 
 export interface Style {
