@@ -46,4 +46,4 @@ deploy:
     - ./node_modules/.bin/gatsby build --prefix-paths
   artifacts:
     paths:
-      - ./pages/public
+      - public

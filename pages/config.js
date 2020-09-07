@@ -1,6 +1,6 @@
 const config = {
   gatsby: {
-    pathPrefix: process.env.CI_PROJECT_NAME || "/",
+    pathPrefix: process.env.CI_PROJECT_NAME || "/widgets",
     siteUrl: "https://energenious.eu",
     gaTrackingId: null,
     trailingSlash: false
