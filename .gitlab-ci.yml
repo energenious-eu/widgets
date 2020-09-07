@@ -14,24 +14,24 @@ before_script:
   - cd lib/
 
 stages:
-  # - build
-  # - test
+  - build
+  - test
   - pages
 
-# build:
-#   stage: build
-#   script:
-#     - npm install
-#     - npm run build
-#   artifacts:
-#     paths:
-#       - lib
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - lib
 
-# test:
-#   stage: test
-#   script:
-#     - npm install
-#     - npm run test
+test:
+  stage: test
+  script:
+    - npm install
+    - npm run test
 
 pages:
   stage: pages
@@ -46,5 +46,5 @@ pages:
   artifacts:
     paths:
       - public
-  # only:
-  #   - master
+  only:
+    - master
