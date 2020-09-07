@@ -26,13 +26,15 @@ build:
   artifacts:
     paths:
       - lib
-
+  only:
+    - master
 test:
   stage: test
   script:
     - npm install
     - npm run test
-
+  only:
+    - master
 deploy:
   stage: deploy
   script:
@@ -44,5 +46,3 @@ deploy:
   artifacts:
     paths:
       - public
-  only:
-    - master
