@@ -18,23 +18,23 @@ stages:
   # - test
   - deploy
 
-build:
-  stage: build
-  script:
-    - npm install
-    - npm run build
-  artifacts:
-    paths:
-      - lib
-  only:
-    - master
-test:
-  stage: test
-  script:
-    - npm install
-    - npm run test
-  only:
-    - master
+# build:
+#   stage: build
+#   script:
+#     - npm install
+#     - npm run build
+#   artifacts:
+#     paths:
+#       - lib
+#   only:
+#     - master
+# test:
+#   stage: test
+#   script:
+#     - npm install
+#     - npm run test
+#   only:
+#     - master
 deploy:
   stage: deploy
   script:
