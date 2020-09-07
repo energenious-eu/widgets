@@ -1,6 +1,8 @@
+const pathPrefix = "/widgets";
+
 const config = {
   gatsby: {
-    pathPrefix: process.env.CI_PROJECT_NAME || "/widgets",
+    pathPrefix,
     siteUrl: "https://energenious.eu",
     gaTrackingId: null,
     trailingSlash: false
@@ -30,7 +32,10 @@ const config = {
     collapsedNav: [
       "/codeblock" // add trailing slash if enabled above
     ],
-    links: [{ text: "Energenious", link: "https://energenious.eu" }],
+    links: [
+      { text: "Energenious", link: "https://energenious.eu" },
+      { text: "Live Examples", link: `${pathPrefix}/storybook` }
+    ],
     frontline: false,
     ignoreIndex: true,
     title: "Widgets"

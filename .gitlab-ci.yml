@@ -14,39 +14,39 @@ before_script:
   - cd lib/
 
 stages:
-  # - build
-  # - test
+  - build
+  - test
   - pages
 
-# build:
-#   stage: build
-#   script:
-#     - npm install
-#     - npm run build
-#   artifacts:
-#     paths:
-#       - lib
-#   only:
-#     - master
-# test:
-#   stage: test
-#   script:
-#     - npm install
-#     - npm run test
-#   only:
-#     - master
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - lib
+
+test:
+  stage: test
+  script:
+    - npm install
+    - npm run test
+
 pages:
   stage: pages
   script:
-    # - npm install
-    # - npm run build
-    # - npm run storybook:build
+    - npm install
+    - npm run build
+    - npm run storybook:build -o ../public/storybook # will resolve to ./public/storybook because we're in /lib
     - cd ../pages
     - npm install
     - ./node_modules/.bin/gatsby build --prefix-paths
     - cd ..
-    - rm -rf public
+    - rm -rf public # this will overwrite the current storybook output
     - mv pages/public .
   artifacts:
     paths:
       - public
+  only:
+    - master
