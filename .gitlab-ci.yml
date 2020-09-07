@@ -36,14 +36,13 @@ stages:
 pages:
   stage: pages
   script:
-    - npm install
-    - npm run build
-    - npm run storybook:build
     - cd ../pages
     - npm install
     - ./node_modules/.bin/gatsby build --prefix-paths
-    - rm -rf ../public
-    - mv public ..
+    - cd ../lib
+    - npm install
+    - npm run build
+    - npm run storybook:build
   artifacts:
     paths:
       - public
