@@ -39,6 +39,8 @@ pages:
     - cd ../pages
     - npm install
     - ./node_modules/.bin/gatsby build --prefix-paths
+    - rm -rf ../public
+    - mv public ..
     - cd ../lib
     - npm install
     - npm run build
