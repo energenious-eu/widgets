@@ -464,6 +464,10 @@ export const baseStyles = injectGlobal`
     border-left: 1px solid #e6ecf1;
   }
 
+  .firstLevel ul .item ul .item > a {
+    color: #bbb;
+  }
+
   .sideBarUL .item {
     list-style: none;
     padding: 0;

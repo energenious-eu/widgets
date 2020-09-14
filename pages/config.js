@@ -26,12 +26,13 @@ const config = {
   },
   sidebar: {
     forcedNavOrder: [
-      "/introduction", // add trailing slash if enabled above
-      "/codeblock"
+      "/about", // add trailing slash if enabled above
+      "/getting-started",
+      "/embeddable-widget",
+      "/templates",
+      "/contributing"
     ],
-    collapsedNav: [
-      "/codeblock" // add trailing slash if enabled above
-    ],
+    collapsedNav: [],
     links: [
       { text: "Energenious", link: "https://energenious.eu" },
       { text: "Live Examples", link: `${pathPrefix}/storybook` }
