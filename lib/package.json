@@ -1,7 +1,7 @@
 {
   "name": "@tecnojest/widget-base",
   "author": "Tecnojest srl https://www.invidea.it",
-  "version": "1.4.32",
+  "version": "1.4.37",
   "publishConfig": {
     "registry": "https://npm.invidea.it"
   },

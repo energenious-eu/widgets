@@ -14,7 +14,7 @@ function render(Widget, uid) {
 
   EmbeddableWidget.Engine = {
     createElement: (props) => {
-      return <Widget {...props} />;
+      return <Widget {...props} className={process.env.WIDGET_MAIN_CSS_CLASS} />;
     },
     render: (component, el) => ReactDOM.render(component, el),
     unmountComponentAtNode: (node) => ReactDOM.unmountComponentAtNode(node),
