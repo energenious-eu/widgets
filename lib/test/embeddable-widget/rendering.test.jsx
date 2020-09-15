@@ -42,7 +42,6 @@ describe('React rendering', () => {
       static options = {
         appendFooter: false,
         appendTooltip: false,
-        className: 'custom',
       };
 
       render() {
@@ -52,11 +51,7 @@ describe('React rendering', () => {
 
     render(Widget, UID);
 
-    const widget = document.getElementById('widget');
-
-    expect(widget.parentElement.className).toEqual('custom');
-
     expect(document.querySelector('footer')).toBeFalsy();
-    expect(document.querySelector('#widget-base-tooltip__container')).toBeFalsy();
+    expect(document.querySelector('.widget-base-tooltip__container')).toBeFalsy();
   });
 });
