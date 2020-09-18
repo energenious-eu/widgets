@@ -168,9 +168,8 @@ export default class EmbeddableWidget {
       }
     }
 
-    if (remount) {
-      EmbeddableWidget.Engine.render(component, el);
-    }
+    // Render at the end after the proper state is in the widget
+    EmbeddableWidget.Engine.render(component, el);
   }
 
   static getOptions(): Partial<Options> {
@@ -473,7 +472,6 @@ export default class EmbeddableWidget {
         });
       }
 
-      EmbeddableWidget.Engine.render(component, el);
 
       if (Footer) el.appendChild(Footer);
       if (Tooltip) el.appendChild(Tooltip);
