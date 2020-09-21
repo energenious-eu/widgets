@@ -41,7 +41,7 @@ const config = {
     ],
     links: [
       { text: "Energenious", link: "https://energenious.eu" },
-      { text: "Live Examples", link: `${pathPrefix}/storybook` }
+      { text: "Examples (Storybook)", link: `${pathPrefix}/storybook` }
     ],
     frontline: false,
     ignoreIndex: false,
