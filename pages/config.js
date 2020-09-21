@@ -30,15 +30,9 @@ const config = {
       "/about", // add trailing slash if enabled above
       "/getting-started",
       "/widget-api",
-      "/templates",
-      "/contributing"
+      "/templates"
     ],
-    collapsedNav: [
-      "/getting-started",
-      "/widget-api",
-      "/templates",
-      "/contributing"
-    ],
+    collapsedNav: ["/getting-started", "/widget-api", "/templates"],
     links: [
       { text: "Energenious", link: "https://energenious.eu" },
       { text: "Examples (Storybook)", link: `${pathPrefix}/storybook` }

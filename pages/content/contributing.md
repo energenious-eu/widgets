@@ -1,10 +1,17 @@
 ---
 title: "Contributing"
+metaTitle: "Widgets - Contributing"
 ---
 
 ## Contributing to the codebase
 
-To contribute to particular parts of the repository, please refer to the corresponding READMEs.
+Feel free to contribute to any part of the codebase. The process should look like so:
+
+1. Identify a bug or an issue
+2. Check if the issue has been found already
+3. If not, thoroughly describe it in a GitLab Issue in [our repository](https://gitlab.com/energenious/widgets/-/issues)
+4. Create a Pull/Merge Request with the solution
+5. Await approval or input from maintainers
 
 ## CI/CD configuration
 
