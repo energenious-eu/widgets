@@ -23,6 +23,14 @@ static externalScripts = [
 ];
 ```
 
+## dependencies
+
+Specify the dependencies of your widget, which will be visible in the tooltip.
+
+```ts
+static dependencies: string[] = [];
+```
+
 ## static options
 
 > These will override `options` from `defaultProps`
@@ -68,4 +76,4 @@ interface Options {
 
 ## Example - pass a callback through options
 
-See how to use `options` in a different way - to react to a change that happened on the hosting platform. [Example](/widget-api/methods)
+See how to use `options` in a different way - to react to a change that happened on the hosting platform. [Example](/widget-api/2-examples)

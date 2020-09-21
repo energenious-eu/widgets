@@ -39,7 +39,7 @@ export interface Engine {
     props,
   }: {
     parentElement: any;
-    remount: any;
+    remount: boolean;
     uid: UID;
     el: HTMLElement;
     component: Component;
