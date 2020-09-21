@@ -23,7 +23,7 @@ static externalScripts = [
 ];
 ```
 
-## dependencies
+## static dependencies
 
 Specify the dependencies of your widget, which will be visible in the tooltip.
 
