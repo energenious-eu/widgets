@@ -1,5 +1,6 @@
 ---
 title: "Purpose"
+metaTitle: "Widgets - Purpose"
 ---
 
 ## Composition

@@ -1,5 +1,6 @@
 ---
 title: "Additional Documentation"
+metaTitle: "Widgets - Additional Documentation"
 ---
 
 # Micro Frontends

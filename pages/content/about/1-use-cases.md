@@ -1,5 +1,6 @@
 ---
 title: "Use cases"
+metaTitle: "Widgets - Use cases"
 ---
 
 ## Micro-frontends approach

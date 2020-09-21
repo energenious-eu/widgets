@@ -1,5 +1,6 @@
 ---
 title: "About"
+metaTitle: "Widgets - About"
 ---
 
 ## Introduction
