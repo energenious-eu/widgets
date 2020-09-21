@@ -1,11 +1,7 @@
 ---
 title: "Getting started"
+metaTitle: "Widgets - Getting started"
 ---
-
-# First steps
-
-This repository contains the documentation, lib and templates for creating widgets.
-Additional templates or implementations of widgets can be created by following README.
 
 ## Prerequisites
 
@@ -20,16 +16,21 @@ To be able to use the widget API you will need to download the `@tecnojest/widge
 
 ### Installing from the npm registry
 
-If you are a registered partner, you will be able to download the package from the official registry. You will need to configure your local npm engine to point to Tecnojest's registry, by doing the following:
+If you are a registered partner, you will be able to download the package from the official registry. Otherwise, skip this step and [build the lib yourself](#buildingthelibyourself).  
+You will need to configure your local npm engine to point to Tecnojest's registry, by doing the following:
 
-    # authenticate in the private npm registry
-    npm login --registry https://npm.invidea.it
-    # set the registry to point to @tecnojest's scope
-    npm config set @tecnojest:registry https://npm.invidea.it
+```bash
+# authenticate in the private npm registry
+npm login --registry https://npm.invidea.it
+# set the registry to point to @tecnojest's scope
+npm config set @tecnojest:registry https://npm.invidea.it
+```
 
 if during the first `npm login` step you receive a `UNABLE_TO_VERIFY_LEAF_SIGNATURE` error, then run:
 
-    npm config set strict-ssl false
+```
+npm config set strict-ssl false
+```
 
 and try again.
 
@@ -38,7 +39,7 @@ and try again.
 Everyone is able to build the `lib` themselves. To do so, follow these steps:
 
 1. Clone the repository
-2. `cd` into the repository
+2. `cd` into the `lib` folder of the repository
 3. `npm install` to install the dependencies
 4. To build, run:  
    4.1 OSX / Linux: `npm run build`  

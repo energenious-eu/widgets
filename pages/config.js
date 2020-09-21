@@ -26,19 +26,19 @@ const config = {
   },
   sidebar: {
     forcedNavOrder: [
+      "/",
       "/about", // add trailing slash if enabled above
       "/getting-started",
-      "/embeddable-widget",
-      "/templates",
-      "/contributing"
+      "/widget-api",
+      "/templates"
     ],
-    collapsedNav: [],
+    collapsedNav: ["/getting-started", "/widget-api", "/templates"],
     links: [
       { text: "Energenious", link: "https://energenious.eu" },
-      { text: "Live Examples", link: `${pathPrefix}/storybook` }
+      { text: "Examples (Storybook)", link: `${pathPrefix}/storybook` }
     ],
     frontline: false,
-    ignoreIndex: true,
+    ignoreIndex: false,
     title: "Widgets"
   },
   siteMetadata: {

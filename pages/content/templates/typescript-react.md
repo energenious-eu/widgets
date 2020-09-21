@@ -1,5 +1,6 @@
 ---
 title: "TypeScript React"
+metaTitle: "Widgets - TypeScript React"
 ---
 
 ## TypeScript React template
@@ -8,7 +9,9 @@ This template includes the basic configuration for the TypeScript React widget i
 
 ## Prerequisites
 
-Please refer to the [main README](/getting-started/installation) to see what software is necessary to run this project.
+Please refer to the [installation guide](/getting-started/0-installation) to see what software is necessary to run this project.
+
+Also see the [TypeScript configuration section](/getting-started/2-typescript-configuration) to make sure you have all the tools installed.
 
 ## Get started
 

@@ -1,10 +1,9 @@
 ---
-title: "Methods"
+title: "Examples"
+metaTitle: "Widgets - Examples"
 ---
 
-## Examples
-
-### Applying dark/light theme based on the hosting platform's preferences
+## Applying dark/light theme based on the hosting platform's preferences
 
 To accomplish our goal, we need to have the ability to add some classes to our elements at runtime. Let us first outline the usage flow:
 

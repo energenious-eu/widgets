@@ -1,5 +1,6 @@
 ---
 title: "JavaScript React"
+metaTitle: "Widgets - JavaScript React"
 ---
 
 ## JavaScript React template
@@ -8,7 +9,7 @@ This template includes the basic configuration for the JavaScript React widget i
 
 ## Prerequisites
 
-Please refer to the [main README](/getting-started/installation) to see what software is necessary to run this project.
+Please refer to the [installation guide](/getting-started/0-installation) to see what software is necessary to run this project.
 
 ## Get started
 
