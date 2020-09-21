@@ -1,5 +1,5 @@
 ---
-title: "Embeddable Widget"
+title: "Widget API"
 ---
 
 # 🚧 Work in progress 🚧
